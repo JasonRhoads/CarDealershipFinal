@@ -29,7 +29,14 @@ namespace CarDealershipFinal
 
         public abstract string GetDisplayText();
         
-
+        /// <summary>
+        /// Get the appropriate data based off of the filter selected
+        /// ex. If Make is the filter then the listings shown does not include the make in the listing
+        /// this works the same when color is selected then color is not shown in the listing
+        /// </summary>
+        /// <param name="filterName"></param>
+        /// <param name="filter"></param>
+        /// <returns></returns>
         public virtual string GetFilteredString(FilterName filterName = FilterName.Null, string filter = null)
         {
             if (filterName == FilterName.Make)

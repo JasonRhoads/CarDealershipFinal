@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace CarDealershipFinal
 {
+    /// <summary>
+    /// Listing object that combines a Car object and DateTime 
+    /// to create a unique listing for each car
+    /// </summary>
     public class Listing
     {
         public Listing() { }

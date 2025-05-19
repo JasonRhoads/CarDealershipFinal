@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace CarDealershipFinal
 {
+    /// <summary>
+    /// ICar interface for the basic attributes for a car
+    /// Inherits IDisplayable
+    /// </summary>
     public interface ICar : IDisplayable
     {   
         string Make { get; set; }
