@@ -1,0 +1,56 @@
+BMW
+X1
+Black
+5
+100,000.00
+B38|Toyota
+Camry
+Blue
+13
+1,345.00
+30 MPG|BMW
+X2
+Blue
+9
+20,000.00
+M2|Toyota
+Prius
+Green
+12
+3,300.75
+20 MPG|Toyota
+Sienna
+Grey
+17
+1,670.99
+30 MPG|BMW
+X3
+Pink
+8
+33,456.75
+M1|BMW
+X4
+White
+25
+30,000.99
+M2|BMW
+X5
+Yellow
+7
+73,456.00
+M2|Toyota
+Corolla
+Gold
+8
+1,256.77
+30 MPG|Ford
+F150
+Red
+2
+100,000.00
+6ft|Honda
+Civic
+Red
+15
+5,000.00
+LX|
