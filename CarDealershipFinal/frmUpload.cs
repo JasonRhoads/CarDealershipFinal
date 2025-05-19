@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
+using ValidationLibrary;
 
 namespace CarDealershipFinal
 {
@@ -23,14 +24,14 @@ namespace CarDealershipFinal
         private bool IsValidData()
         {
             bool isValid = false;
-            string msg = IsPresent(txtModel, txtModel.Tag.ToString());
-            msg += IsPresent(txtAge, txtAge.Tag.ToString());
-            msg += IsInt(txtAge, txtAge.Tag.ToString());
-            msg += IsPresent(txtColor, txtColor.Tag.ToString());
-            msg += IsPresent(txtPrice, txtPrice.Tag.ToString());
-            msg += IsDecimal(txtPrice, txtPrice.Tag.ToString());
-            msg += IsPresent(txtVaring, lblVaring.Text);
-            
+            string msg = Validator.IsPresent(txtModel, txtModel.Tag.ToString());
+            msg += Validator.IsPresent(txtAge, txtAge.Tag.ToString());
+            msg += Validator.IsInt(txtAge, txtAge.Tag.ToString());
+            msg += Validator.IsPresent(txtColor, txtColor.Tag.ToString());
+            msg += Validator.IsPresent(txtPrice, txtPrice.Tag.ToString());
+            msg += Validator.IsDecimal(txtPrice, txtPrice.Tag.ToString());
+            msg += Validator.IsPresent(txtVaring, lblVaring.Text);
+
 
             if (msg == "")
             {
@@ -42,44 +43,6 @@ namespace CarDealershipFinal
             }
             return isValid;
         }
-
-
-        //Check to see if a value was entered
-        private string IsPresent(System.Windows.Forms.TextBox textbox, string name)
-        {
-            string msg = "";
-            if (textbox.Text == "")
-            {
-                msg += $"\n{name} is a required field";
-            }
-
-            return msg;
-        }
-
-        private string IsInt(TextBox textbox, string name)
-        {
-            string msg = "";
-            if (!int.TryParse(textbox.Text, out _))
-            {
-                msg += $"\n{name} needs to be a number ex, 0 - 20";
-            }
-
-            return msg;
-        }
-
-        private string IsDecimal(TextBox textbox, string name)
-        {
-            string msg = "";
-            if (!decimal.TryParse(textbox.Text, out _))
-            {
-                msg += $"\n{name} needs to be a number ex, 100 - 2000000";
-            }
-
-            return msg;
-        }
-
-
-
 
         //Add a new car to the full listing
         private void btnAccept_Click(object sender, EventArgs e)

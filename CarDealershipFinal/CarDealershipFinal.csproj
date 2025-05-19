@@ -112,7 +112,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ValidationLibrary\ValidationLibrary.csproj">
+      <Project>{1B1C1584-7F76-403B-A949-475061ED5C86}</Project>
+      <Name>ValidationLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="DataFiles\CarAgeRanges.txt" />
     <Content Include="DataFiles\CarColors.txt" />

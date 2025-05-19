@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealershipFinal", "CarDealershipFinal\CarDealershipFinal.csproj", "{1C00BACC-1C12-4C2D-BB40-D52FB6718EC3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1B1C1584-7F76-403B-A949-475061ED5C86} = {1B1C1584-7F76-403B-A949-475061ED5C86}
+		{286CEBF8-F657-450A-87EE-DB703A43875B} = {286CEBF8-F657-450A-87EE-DB703A43875B}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValidationLibrary", "ValidationLibrary\ValidationLibrary.csproj", "{1B1C1584-7F76-403B-A949-475061ED5C86}"
