@@ -29,6 +29,13 @@ namespace CarDealershipFinal
             return Car.GetDisplayText() + CreationTime.ToString() + "\n\n";
         }
 
+        /// <summary>
+        /// Get the Listings that match the filter
+        /// </summary>
+        /// <param name="filterName"></param>
+        /// <param name="filter"></param>
+        /// <returns>A Car objects that match the filter and 
+        /// return the Car and then the CreationTime</returns>
         public string GetFilteredString(FilterName filterName = FilterName.Null, string filter = null)
         {
             string carFilteredString = Car.GetFilteredString(filterName, filter);
