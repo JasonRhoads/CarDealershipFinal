@@ -11,29 +11,28 @@ namespace CarDealershipFinal.DatabaseFiles
 {
     public class CarAgeRangesDB
     {
-
-        private const string Path = @"..\..\DataFiles\CarAgeRanges.txt";
+        private const string Directory = @"..\..\DataFiles\";
+        private const string Path = Directory + "CarAgeRanges.txt";
 
         /// <summary>
         /// Gets the age range data from the data file and returns it as a dictionary
         /// ex. If the data is "Under 5 years\n0\n5|Between 5 years to 15 years\n5\n15|" it will return
         /// { "Under 5 years" : [0, 5], "Between 5 years to 15 years": [5, 15] }
         /// </summary>
-        /// <param></param>
         /// <returns>If successful, returns a Dictionary with keys equal to the names of the ranges
         /// and values equal to the minimum and maximum values of the keys
         /// </returns>
         public static Dictionary<string, List<int>> Get()
         {
+            var result = new Dictionary<string, List<int>>();
+            
             try
             {
-                StreamReader textIn = new StreamReader(new FileStream(Path, FileMode.Open, FileAccess.Read));
-                var cars = textIn.ReadToEnd().Split('|');
+                //Get data from file
+                StreamReader carsIn = new StreamReader(new FileStream(Path, FileMode.Open, FileAccess.Read));
+                var cars = carsIn.ReadToEnd().Split('|');
+                carsIn?.Close();
 
-                var result = new Dictionary<string, List<int>>();
-
-
-                //var cars = System.IO.File.ReadAllText(Path).Split('|');
                 string key = "";
                 int lowerLimit = 0;
                 int upperLimit = 0;
@@ -56,15 +55,21 @@ namespace CarDealershipFinal.DatabaseFiles
 
                     }
                 }
-
-                return result;
-
             }
-            catch (Exception)
+            catch (FileNotFoundException)
             {
-                MessageBox.Show("Error, file not found");
-                return null;
+                MessageBox.Show(Path + " not found.", "File Not Found");
             }
+            catch (DirectoryNotFoundException)
+            {
+                MessageBox.Show(Directory + " not found.", "Directory Not Found");
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(ex.Message, "IOException");
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -72,7 +77,6 @@ namespace CarDealershipFinal.DatabaseFiles
         /// ex. if the age range is { "Under 5 years" : [0, 5], "Between 5 years to 15 years": [5, 15] }
         /// it will return { "Under 5 years", "Between 5 years to 15 years" }
         /// </summary>
-        /// <param></param>
         /// <returns>If successful, returns a List of the human readable keys</returns>
         public static List<string> GetRanges()
         {
