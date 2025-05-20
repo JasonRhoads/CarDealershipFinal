@@ -12,13 +12,21 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CarDealershipFinal
 {
+ 
+    /// <summary>
+    /// Manages the filters by interacting with the DataBaseFiles
+    /// </summary>
     public class Filters
     {
+        //Get a list of all of the filters
         private static List<string> Colors = CarColorsDB.Get();
         private static List<string> Makes = CarMakesDB.Get();
         private static List<string> Prices = CarPriceRangesDB.GetRanges();
         private static List<string> Ages = CarAgeRangesDB.GetRanges();
 
+        /// <summary>
+        /// Assign the filter variables
+        /// </summary>
         private static void LoadFilters()
         {
             Colors = CarColorsDB.Get();
@@ -27,6 +35,10 @@ namespace CarDealershipFinal
             Ages = CarAgeRangesDB.GetRanges();
         }
 
+        /// <summary>
+        /// Get the filters into a result list
+        /// </summary>
+        /// <returns>array of filters</returns>
         public static string[] Get()
         {
             LoadFilters();
@@ -60,7 +72,15 @@ namespace CarDealershipFinal
 
             return result.ToArray();
         }
+        
 
+        /// <summary>
+        /// Gets listings based off of the selected filter
+        /// </summary>
+        /// <param name="car"></param>
+        /// <param name="filterName"></param>
+        /// <param name="filter"></param>
+        /// <returns>Listing objects that match the selected filter</returns>
         public static string GetFiltered(Car car, FilterName filterName = FilterName.Null, string filter = null)
         {
             string result = "";
@@ -69,16 +89,19 @@ namespace CarDealershipFinal
             {
                 if (filterName == FilterName.Make)
                 {
+                    //Returns cars that match the Make, does not show Make in the display
                     if (car.Make == filter)
                         return $"Model: {car.Model}\nColor: {car.Color}\nAge: {car.Age}\nPrice: {car.Price.ToString("c")}\n";
                 }
                 else if (filterName == FilterName.Color)
                 {
+                    //Returns cars that match the Color, does not show Color in the display
                     if (car.Color == filter)
                         return $"Make: {car.Make}\nModel: {car.Model}\nAge: {car.Age}\nPrice: {car.Price.ToString("c")}\n";
                 }
                 else if (filterName == FilterName.Age)
                 {
+                    //Get the age range desired, and set the lower and upper limits
                     var ages = CarAgeRangesDB.Get();
                     int lowerLimit = ages[filter][0];
                     int upperLimit = ages[filter][1];
@@ -91,6 +114,7 @@ namespace CarDealershipFinal
                 }
                 else if (filterName == FilterName.Price)
                 {
+                    //Get the price range desired and set the lower and upper limits
                     var prices = CarPriceRangesDB.Get();
                     decimal lowerLimit = prices[filter][0];
                     decimal upperLimit = prices[filter][1];
@@ -107,6 +131,9 @@ namespace CarDealershipFinal
         }
     }
 
+    /// <summary>
+    /// Enum for filter names
+    /// </summary>
     public enum FilterName
     {
         Color,
