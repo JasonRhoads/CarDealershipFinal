@@ -86,7 +86,7 @@ namespace CarDealershipFinal
                     int age = car.Age;
                     if (age >= lowerLimit && age < upperLimit)  //Only include if within range
                     {
-                        result += car.ToString();
+                        result += car.GetDisplayText();
                     }
                 }
                 else if (filterName == FilterName.Price)
@@ -98,7 +98,7 @@ namespace CarDealershipFinal
                     decimal price = car.Price;
                     if (price >= lowerLimit && price < upperLimit)  //Only include if within range
                     {
-                        result += car.ToString();
+                        result += car.GetDisplayText();
                     }
                 }
             }

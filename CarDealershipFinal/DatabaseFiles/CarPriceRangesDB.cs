@@ -1,43 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static System.Windows.Forms.LinkLabel;
 
 namespace CarDealershipFinal.DatabaseFiles
 {
     public class CarPriceRangesDB
     {
-        private const string Path = @"..\..\DataFiles\CarPriceRanges.txt";
-
+        private const string Directory = @"..\..\DataFiles\";
+        private const string Path = Directory + "CarPriceRanges.txt";
         public static Dictionary<string, List<decimal>> Get()
         {
             var result = new Dictionary<string, List<decimal>>();
 
-            var cars = System.IO.File.ReadAllText(Path).Split('|');
-            string key = "";
-            decimal lowerLimit = 0;
-            decimal upperLimit = 0;
-            foreach (var car in cars)
+            StreamReader textIn = new StreamReader(new FileStream(Path, FileMode.Open, FileAccess.Read));
+            
+            try
             {
-                var lines = car.Split('\n');
-                for (int i = 0; i < lines.Length; i++)
+                var cars = textIn.ReadToEnd().Split('|');
+                string key = "";
+                decimal lowerLimit = 0;
+                decimal upperLimit = 0;
+                foreach (var car in cars)
                 {
-                    var line = lines[i];
-
-                    if (i == 0)
-                        key = line.Trim();
-                    else if (i == 1)
-                        lowerLimit = Convert.ToDecimal(line);
-                    else if (i == 2)
+                    var lines = car.Split('\n');
+                    for (int i = 0; i < lines.Length; i++)
                     {
-                        upperLimit = Convert.ToDecimal(line);
-                        result.Add(key, new List<decimal> { lowerLimit, upperLimit });
-                    }
+                        var line = lines[i];
 
+                        if (i == 0)
+                            key = line.Trim();
+                        else if (i == 1)
+                            lowerLimit = Convert.ToDecimal(line);
+                        else if (i == 2)
+                        {
+                            upperLimit = Convert.ToDecimal(line);
+                            result.Add(key, new List<decimal> { lowerLimit, upperLimit });
+                        }
+
+                    }
                 }
+            } 
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show(Path + " not found.", "File Not Found");
             }
+            catch (DirectoryNotFoundException) 
+            {
+                MessageBox.Show(Directory + " not found.", "Directory Not Found");
+            }
+            catch (IOException ex) 
+            {
+                MessageBox.Show(ex.Message, "IOException");
+            }
+            finally
+            {
+                textIn?.Close();
+            }
+
             return result;
         }
 
