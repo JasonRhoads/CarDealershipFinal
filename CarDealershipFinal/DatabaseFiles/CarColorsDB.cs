@@ -25,17 +25,19 @@ namespace CarDealershipFinal.DatabaseFiles
             StreamReader textIn = new StreamReader(new FileStream(Path, FileMode.Open, FileAccess.Read));
 
             var s = textIn.ReadToEnd().Split('|').ToList();
+            textIn?.Close();
             return s;
         }
 
         public static void Save(string color)
         {
-            StreamReader textIn = new StreamReader(new FileStream(Path, FileMode.Open, FileAccess.Read));
+            //StreamReader textIn = new StreamReader(new FileStream(Path, FileMode.Open, FileAccess.Read));
 
-            string result = textIn.ReadToEnd();
+            string result = System.IO.File.ReadAllText(Path);
             if (!result.Contains(color))
                 result += $"|{color}";
             System.IO.File.WriteAllText(Path, result);
+            //textIn.Close();
         }
 
         public static void Update(List<string> colors)

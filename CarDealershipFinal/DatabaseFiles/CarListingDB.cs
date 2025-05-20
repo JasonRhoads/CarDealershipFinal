@@ -2,50 +2,91 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static System.Windows.Forms.LinkLabel;
 
 namespace CarDealershipFinal
 {
+    /// <summary>
+    /// Functions to access datafiles
+    /// </summary>
     public static class CarListingsDB
     {
-        private const string CarsPath = @"..\..\DataFiles\InventoryItems.txt";
-        private const string TimesPath = @"..\..\DataFiles\ListingTimes.txt";
+        private const string Directory = @"..\..\DataFiles\";
+        private const string CarsPath = Directory + "InventoryItems.txt";
+        private const string TimesPath = Directory + "ListingTimes.txt";
 
+        /// <summary>
+        /// Gets the Car and ListingTime data from file
+        /// </summary>
+        /// <returns>List of Listing for each Car and ListingTime</returns>
         public static List<Listing> GetListings()
         {
             List<Listing> result = new List<Listing>();
 
-            string[] cars = System.IO.File.ReadAllText(CarsPath).Split('|');
-            string[] times = System.IO.File.ReadAllText(TimesPath).Split('|');
-
-            int index = 0;
-            Car c = null;
-            foreach (var car in cars)
+            StreamReader carsIn;// = new StreamReader(new FileStream(CarsPath, FileMode.Open, FileAccess.Read));
+            StreamReader timesIn;// = new StreamReader(new FileStream(TimesPath, FileMode.Open, FileAccess.Read));
+            
+            try
             {
-                if (car != null && car != "")
-                {
-                    var lines = car.Split('\n');
-                    
-                    if (lines[0].Trim() == nameof(BMW))
-                        c = new BMW(lines[1].Trim(), lines[2].Trim(), Convert.ToInt32(lines[3].Trim()), Convert.ToDecimal(lines[4].Trim()), lines[5].Trim());
-                    else if (lines[0].Trim() == nameof(Toyota))
-                        c = new Toyota(lines[1].Trim(), lines[2].Trim(), Convert.ToInt32(lines[3].Trim()), Convert.ToDecimal(lines[4].Trim()), lines[5].Trim());
-                    else if (lines[0].Trim() == nameof(Ford))
-                        c = new Ford(lines[1].Trim(), lines[2].Trim(), Convert.ToInt32(lines[3].Trim()), Convert.ToDecimal(lines[4].Trim()), lines[5].Trim());
-                    else if (lines[0].Trim() == nameof(Honda))
-                        c = new Honda(lines[1].Trim(), lines[2].Trim(), Convert.ToInt32(lines[3].Trim()), Convert.ToDecimal(lines[4].Trim()), lines[5].Trim());
+                carsIn = new StreamReader(new FileStream(CarsPath, FileMode.Open, FileAccess.Read));
+                timesIn = new StreamReader(new FileStream(TimesPath, FileMode.Open, FileAccess.Read));
 
-                    result.Add(new Listing(c, DateTime.Parse(times[index])));
-                    index++;
+                string[] cars = carsIn.ReadToEnd().Split('|');
+                string[] times = timesIn.ReadToEnd().Split('|');
+
+                carsIn?.Close();
+                timesIn?.Close();
+
+                int index = 0;
+                Car c = null;
+                foreach (var car in cars)
+                {
+                    if (car != null && car != "")
+                    {
+                        var lines = car.Split('\n');
+                    
+                        if (lines[0].Trim() == nameof(BMW))
+                            c = new BMW(lines[1].Trim(), lines[2].Trim(), Convert.ToInt32(lines[3].Trim()), Convert.ToDecimal(lines[4].Trim()), lines[5].Trim());
+                        else if (lines[0].Trim() == nameof(Toyota))
+                            c = new Toyota(lines[1].Trim(), lines[2].Trim(), Convert.ToInt32(lines[3].Trim()), Convert.ToDecimal(lines[4].Trim()), lines[5].Trim());
+                        else if (lines[0].Trim() == nameof(Ford))
+                            c = new Ford(lines[1].Trim(), lines[2].Trim(), Convert.ToInt32(lines[3].Trim()), Convert.ToDecimal(lines[4].Trim()), lines[5].Trim());
+                        else if (lines[0].Trim() == nameof(Honda))
+                            c = new Honda(lines[1].Trim(), lines[2].Trim(), Convert.ToInt32(lines[3].Trim()), Convert.ToDecimal(lines[4].Trim()), lines[5].Trim());
+
+                        result.Add(new Listing(c, DateTime.Parse(times[index])));
+                        index++;
+                    }
                 }
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show(CarsPath + " not found.\n"
+                    + TimesPath + " not found."
+                    , "File Not Found");
+            }
+            catch (DirectoryNotFoundException)
+            {
+                MessageBox.Show(Directory + " not found.", "Directory Not Found");
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(ex.Message, "IOException");
             }
 
             return result;
         }
 
+        /// <summary>
+        /// Gets Cars and ListingTimes creates a CarList from the GetListing function.
+        /// </summary>
+        /// <returns>CarList listing object</returns>
         public static CarList<Listing> Get()
         {
             CarList<Listing> result = new CarList<Listing>();
@@ -58,58 +99,79 @@ namespace CarDealershipFinal
             return result;
         }
 
+        /// <summary>
+        /// Main Save function takes car object 
+        /// and the uniqueAttribute related to each make
+        /// </summary>
+        /// <param name="car"></param>
+        /// <param name="uniqueAttribute"></param>
+        public static void Save(Car car, string uniqueAttribute)
+        {
+            StreamReader carsIn = new StreamReader(new FileStream(CarsPath, FileMode.Open, FileAccess.ReadWrite));
+            StreamReader timesIn = new StreamReader(new FileStream(TimesPath, FileMode.Open, FileAccess.ReadWrite));
+            StreamWriter carsOut;
+            StreamWriter timesOut;
+            try
+            {
+                CarColorsDB.Save(car.Color);
+
+                string carsResult = carsIn.ReadToEnd();
+                carsResult += $"{car.Make}\n{car.Model}\n{car.Color}\n{car.Age}\n{car.Price}\n{uniqueAttribute}|";
+                carsIn.Close();
+
+                string timesResult = timesIn.ReadToEnd();
+                timesResult += $"{DateTime.Now}|";
+                timesIn.Close();
+
+                carsOut = new StreamWriter(new FileStream(CarsPath, FileMode.Create, FileAccess.ReadWrite));
+                timesOut = new StreamWriter(new FileStream(TimesPath, FileMode.Create, FileAccess.ReadWrite));
+                carsOut.Write(carsResult);
+                timesOut.Write(timesResult);
+
+                carsOut.Close();
+                timesOut.Close();
+
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show(CarsPath + " not found.\n"
+                    + TimesPath + " not found."
+                    , "File Not Found");
+            }
+            catch (DirectoryNotFoundException)
+            {
+                MessageBox.Show(Directory + " not found.", "Directory Not Found");
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(ex.Message, "IOException");
+            }
+        }
+
+
         public static void Save(BMW car)
         {
-            CarColorsDB.Save(car.Color);
-
-            string carsResult = System.IO.File.ReadAllText(CarsPath);
-            carsResult += $"{car.Make}\n{car.Model}\n{car.Color}\n{car.Age}\n{car.Price}\n{car.Engine}|";
-            System.IO.File.WriteAllText(CarsPath, carsResult);
-
-            string timesResult = System.IO.File.ReadAllText(TimesPath);
-            timesResult += $"{DateTime.Now}|";
-            System.IO.File.WriteAllText(TimesPath, timesResult);
+            Save(car, car.Engine);
         }
 
         public static void Save(Toyota car)
         {
-            CarColorsDB.Save(car.Color);
-
-            string carsResult = System.IO.File.ReadAllText(CarsPath);
-            carsResult += $"{car.Make}\n{car.Model}\n{car.Color}\n{car.Age}\n{car.Price}\n{car.Mileage}|";
-            System.IO.File.WriteAllText(CarsPath, carsResult);
-
-            string timesResult = System.IO.File.ReadAllText(TimesPath);
-            timesResult += $"{DateTime.Now}|";
-            System.IO.File.WriteAllText(TimesPath, timesResult);
+           Save(car, car.Mileage);
         }
         public static void Save(Honda car)
         {
-            CarColorsDB.Save(car.Color);
-
-            string carsResult = System.IO.File.ReadAllText(CarsPath);
-            carsResult += $"{car.Make}\n{car.Model}\n{car.Color}\n{car.Age}\n{car.Price}\n{car.Trim}|";
-            System.IO.File.WriteAllText(CarsPath, carsResult);
-
-            string timesResult = System.IO.File.ReadAllText(TimesPath);
-            timesResult += $"{DateTime.Now}|";
-            System.IO.File.WriteAllText(TimesPath, timesResult);
+            Save(car, car.Trim);
         }
 
         public static void Save(Ford car)
         {
-            CarColorsDB.Save(car.Color);
-
-            string carsResult = System.IO.File.ReadAllText(CarsPath);
-            carsResult += $"{car.Make}\n{car.Model}\n{car.Color}\n{car.Age}\n{car.Price}\n{car.Height}|";
-            System.IO.File.WriteAllText(CarsPath, carsResult);
-
-            string timesResult = System.IO.File.ReadAllText(TimesPath);
-            timesResult += $"{DateTime.Now}|";
-            System.IO.File.WriteAllText(TimesPath, timesResult);
+            Save(car, car.Height);
         }
 
-        //Get the new list of cars and save them to the datafile
+        /// <summary>
+        /// Get the new list of cars and save them to the datafile
+        /// </summary>
+        /// <param name="listings"></param>
         public static void UpdateAfterDeleted(List<Listing> listings)
         {
             string carsResult = "";
@@ -135,8 +197,31 @@ namespace CarDealershipFinal
 
             CarColorsDB.Update(colors);
 
-            System.IO.File.WriteAllText(CarsPath, carsResult);
-            System.IO.File.WriteAllText(TimesPath, timesResult);
+            //write new listing of cars to files
+            try
+            {
+                StreamWriter carsOut = new StreamWriter(new FileStream(CarsPath, FileMode.Create, FileAccess.Write));
+                StreamWriter timesOut = new StreamWriter(new FileStream(TimesPath, FileMode.Create, FileAccess.Write));
+                carsOut.Write(carsResult);
+                timesOut.Write(timesResult);
+
+                carsOut.Close();
+                timesOut.Close();
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show(CarsPath + " not found.\n"
+                    + TimesPath + " not found."
+                    , "File Not Found");
+            }
+            catch (DirectoryNotFoundException)
+            {
+                MessageBox.Show(Directory + " not found.", "Directory Not Found");
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(ex.Message, "IOException");
+            }
 
         }
     }

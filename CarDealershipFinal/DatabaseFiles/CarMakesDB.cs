@@ -8,11 +8,18 @@ using System.Windows.Forms;
 
 namespace CarDealershipFinal.DatabaseFiles
 {
+    /// <summary>
+    /// Get Makes from file
+    /// </summary>
     public class CarMakesDB
     {
         private const string Directory = @"..\..\DataFiles\";
         private const string Path = Directory + "CarMakes.txt";
 
+        /// <summary>
+        /// Gets Makes that are available for application
+        /// </summary>
+        /// <returns>List of strings that contain the Makes available</returns>
         public static List<string> Get()
         {
             StreamReader textIn = new StreamReader(new FileStream(Path, FileMode.Open, FileAccess.Read));

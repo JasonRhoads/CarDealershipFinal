@@ -10,10 +10,19 @@ using static System.Windows.Forms.LinkLabel;
 
 namespace CarDealershipFinal.DatabaseFiles
 {
+    /// <summary>
+    /// Gets price ranges from file
+    /// </summary>
     public class CarPriceRangesDB
     {
         private const string Directory = @"..\..\DataFiles\";
         private const string Path = Directory + "CarPriceRanges.txt";
+        
+        /// <summary>
+        /// Creates Dictionary for price ranges
+        /// </summary>
+        /// <returns>Deicionary where key is the price ranges and 
+        /// the values are the lower and upper ranges</returns>
         public static Dictionary<string, List<decimal>> Get()
         {
             var result = new Dictionary<string, List<decimal>>();
@@ -66,6 +75,10 @@ namespace CarDealershipFinal.DatabaseFiles
             return result;
         }
 
+        /// <summary>
+        /// Gets the price ranges
+        /// </summary>
+        /// <returns>The key values from Get() as a list</returns>
         public static List<string> GetRanges()
         {
             var result = Get();
