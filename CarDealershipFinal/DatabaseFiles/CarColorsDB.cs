@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,15 +12,27 @@ namespace CarDealershipFinal.DatabaseFiles
     {
         private const string Path = @"..\..\DataFiles\CarColors.txt";
 
+        /// <summary>
+        /// Gets the age range data from the data file and returns it as a dictionary
+        /// ex. 
+        /// </summary>
+        /// <param></param>
+        /// <returns>If successful, returns a Dictionary with keys equal to the names of the ranges
+        /// and values equal to the minimum and maximum values of the keys
+        /// </returns>
         public static List<string> Get()
         {
-            var s = System.IO.File.ReadAllText(Path).Trim().Split('|').ToList();
+            StreamReader textIn = new StreamReader(new FileStream(Path, FileMode.Open, FileAccess.Read));
+
+            var s = textIn.ReadToEnd().Split('|').ToList();
             return s;
         }
 
         public static void Save(string color)
         {
-            string result = System.IO.File.ReadAllText(Path);
+            StreamReader textIn = new StreamReader(new FileStream(Path, FileMode.Open, FileAccess.Read));
+
+            string result = textIn.ReadToEnd();
             if (!result.Contains(color))
                 result += $"|{color}";
             System.IO.File.WriteAllText(Path, result);
