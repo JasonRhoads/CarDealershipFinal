@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace CarDealershipFinal
 {
+    /// <summary>
+    /// Base class of Car to be inherited by a Make Car Class
+    /// </summary>
     public abstract class Car : ICar
     {
         public string Make { get; set; }
@@ -18,6 +21,14 @@ namespace CarDealershipFinal
 
         public Car() { }
 
+        /// <summary>
+        /// Base Car object
+        /// </summary>
+        /// <param name="make"></param>
+        /// <param name="model"></param>
+        /// <param name="color"></param>
+        /// <param name="age"></param>
+        /// <param name="price"></param>
         public Car(string make, string model, string color, int age, decimal price)
         {
             this.Make = make;
@@ -27,6 +38,9 @@ namespace CarDealershipFinal
             this.Price = price;
         }
 
+        /// <summary>
+        /// Requires each Car Make to implement a GetDisplayText method
+        /// </summary>
         public abstract string GetDisplayText();
         
         /// <summary>
@@ -36,7 +50,7 @@ namespace CarDealershipFinal
         /// </summary>
         /// <param name="filterName"></param>
         /// <param name="filter"></param>
-        /// <returns></returns>
+        /// <returns>a Car object without having the seleted filter to reduce redundency</returns>
         public virtual string GetFilteredString(FilterName filterName = FilterName.Null, string filter = null)
         {
             if (filterName == FilterName.Make)
