@@ -29,13 +29,11 @@ namespace CarDealershipFinal
         {
             List<Listing> result = new List<Listing>();
 
-            StreamReader carsIn;// = new StreamReader(new FileStream(CarsPath, FileMode.Open, FileAccess.Read));
-            StreamReader timesIn;// = new StreamReader(new FileStream(TimesPath, FileMode.Open, FileAccess.Read));
-            
             try
             {
-                carsIn = new StreamReader(new FileStream(CarsPath, FileMode.Open, FileAccess.Read));
-                timesIn = new StreamReader(new FileStream(TimesPath, FileMode.Open, FileAccess.Read));
+                //read in current data from file
+                StreamReader carsIn = new StreamReader(new FileStream(CarsPath, FileMode.Open, FileAccess.Read));
+                StreamReader timesIn = new StreamReader(new FileStream(TimesPath, FileMode.Open, FileAccess.Read));
 
                 string[] cars = carsIn.ReadToEnd().Split('|');
                 string[] times = timesIn.ReadToEnd().Split('|');
@@ -43,6 +41,7 @@ namespace CarDealershipFinal
                 carsIn?.Close();
                 timesIn?.Close();
 
+                //iterate through cars to create each object and time
                 int index = 0;
                 Car c = null;
                 foreach (var car in cars)
@@ -60,6 +59,7 @@ namespace CarDealershipFinal
                         else if (lines[0].Trim() == nameof(Honda))
                             c = new Honda(lines[1].Trim(), lines[2].Trim(), Convert.ToInt32(lines[3].Trim()), Convert.ToDecimal(lines[4].Trim()), lines[5].Trim());
 
+                        //create a new listing for each iteration
                         result.Add(new Listing(c, DateTime.Parse(times[index])));
                         index++;
                     }
@@ -115,14 +115,17 @@ namespace CarDealershipFinal
             {
                 CarColorsDB.Save(car.Color);
 
+                //Get list of current cars
                 string carsResult = carsIn.ReadToEnd();
                 carsResult += $"{car.Make}\n{car.Model}\n{car.Color}\n{car.Age}\n{car.Price}\n{uniqueAttribute}|";
                 carsIn.Close();
 
+                //Get list of current listing times
                 string timesResult = timesIn.ReadToEnd();
                 timesResult += $"{DateTime.Now}|";
                 timesIn.Close();
 
+                //Write new car and time to files.
                 carsOut = new StreamWriter(new FileStream(CarsPath, FileMode.Create, FileAccess.ReadWrite));
                 timesOut = new StreamWriter(new FileStream(TimesPath, FileMode.Create, FileAccess.ReadWrite));
                 carsOut.Write(carsResult);
@@ -148,21 +151,37 @@ namespace CarDealershipFinal
             }
         }
 
-
+        /// <summary>
+        /// Save BMW with unique attribute 
+        /// </summary>
+        /// <param name="car"></param>
         public static void Save(BMW car)
         {
             Save(car, car.Engine);
         }
 
+        /// <summary>
+        /// Save Toyota with unique attribute 
+        /// </summary>
+        /// <param name="car"></param>
         public static void Save(Toyota car)
         {
            Save(car, car.Mileage);
         }
+
+        /// <summary>
+        /// Save Honda with unique attribute 
+        /// </summary>
+        /// <param name="car"></param>
         public static void Save(Honda car)
         {
             Save(car, car.Trim);
         }
 
+        /// <summary>
+        /// Save Ford with unique attribute 
+        /// </summary>
+        /// <param name="car"></param>
         public static void Save(Ford car)
         {
             Save(car, car.Height);
