@@ -14,7 +14,12 @@ namespace ValidationLibrary
     public static class Validator
     {
       
-        //Check to see if a value was entered
+        /// <summary>
+        /// Check to see if a value was entered
+        /// </summary>
+        /// <param name="textbox"></param>
+        /// <param name="name"></param>
+        /// <returns>if successful, returns an empty string "", if fails returns a message</returns>
         public static string IsPresent(System.Windows.Forms.TextBox textbox, string name)
         {
             string msg = "";
@@ -26,6 +31,13 @@ namespace ValidationLibrary
             return msg;
         }
 
+
+        /// <summary>
+        /// Check to see in an Int was entered
+        /// </summary>
+        /// <param name="textbox"></param>
+        /// <param name="name"></param>
+        /// <returns>if successful, returns an empty string "", if fails returns a message</returns>
         public static string IsInt(TextBox textbox, string name)
         {
             string msg = "";
@@ -37,6 +49,13 @@ namespace ValidationLibrary
             return msg;
         }
 
+
+        /// <summary>
+        /// Check to see if a valid Decimal was entered
+        /// </summary>
+        /// <param name="textbox"></param>
+        /// <param name="name"></param>
+        /// <returns>if successful, returns an empty string "", if fails returns a message</returns>
         public static string IsDecimal(TextBox textbox, string name)
         {
             string msg = "";
