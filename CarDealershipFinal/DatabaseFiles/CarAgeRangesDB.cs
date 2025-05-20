@@ -9,6 +9,9 @@ using static System.Windows.Forms.LinkLabel;
 
 namespace CarDealershipFinal.DatabaseFiles
 {
+    /// <summary>
+    /// Get Age Range from file
+    /// </summary>
     public class CarAgeRangesDB
     {
         private const string Directory = @"..\..\DataFiles\";

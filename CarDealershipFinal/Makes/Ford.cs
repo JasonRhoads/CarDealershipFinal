@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CarDealershipFinal
 {
+    /// <summary>
+    /// Ford is a child class of Car
+    /// </summary>
     public class Ford : Car, ICar
     {
         public string Height {  get; set; }
@@ -16,14 +19,24 @@ namespace CarDealershipFinal
             this.Height = height;
         }
 
+        /// <summary>
+        /// Get the display properties of the Ford object
+        /// </summary>
+        /// <returns>properties of the Ford object as a string</returns>
         public override string GetDisplayText() =>
             $"Make: {Make}\n" +
             $"Model: {Model}\n" +
             $"Color: {Color}\n" +
             $"Age: {Age}\n" +
             $"Price: {Price.ToString("c")}\n" +
-            $"Height: {Height}\n"; 
+            $"Height: {Height}\n";
 
+        /// <summary>
+        /// Gets the Ford object when a filter is selected
+        /// </summary>
+        /// <param name="filterName"></param>
+        /// <param name="filter"></param>
+        /// <returns>the unique attribute for Ford</returns>
         public override string GetFilteredString(FilterName filterName = FilterName.Null, string filter = null)
         {
             string result = Filters.GetFiltered(this, filterName, filter);

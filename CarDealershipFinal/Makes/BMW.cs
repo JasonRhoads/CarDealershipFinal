@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace CarDealershipFinal
 {
+    /// <summary>
+    /// BMW is a child class of Car
+    /// </summary>
     public class BMW : Car, ICar
     {
         public string Engine { get; set; }
@@ -20,6 +23,10 @@ namespace CarDealershipFinal
             this.Engine = engine;
         }
 
+        /// <summary>
+        /// Get the display properties of the BMW object
+        /// </summary>
+        /// <returns>properties of the BMW object as a string</returns>
         public override string GetDisplayText() =>
             $"Make: {Make}\n" +
             $"Model: {Model}\n" +
@@ -28,6 +35,12 @@ namespace CarDealershipFinal
             $"Price: {Price.ToString("c")}\n" + 
             $"Engine: {Engine}\n";
         
+        /// <summary>
+        /// Gets the BWM object when a filter is selected
+        /// </summary>
+        /// <param name="filterName"></param>
+        /// <param name="filter"></param>
+        /// <returns>the unique attribute for BMW</returns>
         public override string GetFilteredString(FilterName filterName = FilterName.Null, string filter = null)
         {
             string result = Filters.GetFiltered(this, filterName, filter);
