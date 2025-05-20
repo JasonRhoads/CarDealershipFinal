@@ -10,20 +10,35 @@ using System.Windows.Forms;
 
 namespace CarDealershipFinal
 {
+    /// <summary>
+    /// Form to delete a car from the listings
+    /// </summary>
     public partial class frmDeleteCar : Form
     {
-
+        /// <summary>
+        /// Get a full list of the current listings
+        /// </summary>
         private List<Listing> listings = CarListingsDB.GetListings(); 
+        
         public frmDeleteCar()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Load the available cars to cboDeleteCar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void frmDeleteCar_Load(object sender, EventArgs e)
         {
             FillCarFilters();
         }
 
+        /// <summary>
+        /// Clears cboDeleteCar adds select a car.. 
+        /// then iterates through the listings to show the cars that can be deleted
+        /// </summary>
         private void FillCarFilters()
         {
             cboDeleteCar.Items.Clear();
@@ -37,21 +52,32 @@ namespace CarDealershipFinal
             }
         }
 
-        //Shows the full details of the car the user has selected to delete
+        /// <summary>
+        /// Shows the full details of the car the user has selected to delete
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowCarDeleteDetails(object sender, EventArgs e)
         {
+            //Check to see if a car was selected and not on select a car...
             if (cboDeleteCar.SelectedIndex != 0)
             {
+                //show the full details of the car when selected
                 rchDeleteDetails.Text = listings[cboDeleteCar.SelectedIndex - 1].ToString();
             }
             else
             {
+                //if nothing is selected clear the rich text box
                 rchDeleteDetails.Text = "";
             }
         }
 
 
-        //delete car from the list of cars.
+        /// <summary>
+        /// delete car from the list of cars.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
             try
@@ -87,6 +113,11 @@ namespace CarDealershipFinal
             }
         }
 
+        /// <summary>
+        /// Cancel and close the delete form without deleting a car
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();

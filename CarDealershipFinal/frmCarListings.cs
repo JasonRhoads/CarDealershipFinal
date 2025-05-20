@@ -11,6 +11,9 @@ using System.Windows.Forms;
 
 namespace CarDealershipFinal
 {
+    /// <summary>
+    /// Main form for CarDealership
+    /// </summary>
     public partial class frmCarListings : Form
     {
         public frmCarListings()
@@ -18,12 +21,18 @@ namespace CarDealershipFinal
             InitializeComponent();
         }
 
+        //Load the filters and the full listing of cars
         private void frmCarListings_Load(object sender, EventArgs e)
         {
             FillListings();
             FillFilters();
         }
 
+        /// <summary>
+        /// Opens the form to delete a car
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
             //check to see if there is at least one listing to delete
@@ -40,6 +49,9 @@ namespace CarDealershipFinal
             }
         }
 
+        /// <summary>
+        /// Clear the filters and reload them incase some were added or removed
+        /// </summary>
         private void FillFilters()
         {
             cboFilterBy.Items.Clear();
@@ -47,6 +59,9 @@ namespace CarDealershipFinal
             cboFilterBy.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// Show the full listing of cars starting with the newest at the top
+        /// </summary>
         private void FillListings()
         {
             rchListings.Clear();
@@ -58,14 +73,22 @@ namespace CarDealershipFinal
                     + $"{listings[i].Car.GetDisplayText()}\n";
         }
 
+        /// <summary>
+        /// Show the cars that matach the filter selected
+        /// </summary>
+        /// <param name="filter"></param>
         private void FillFilteredListings(string filter)
         {
+            //check to see if a filter was slected
             if (cboFilterBy.SelectedIndex != 0)
             {
+                //clear the rich text box
                 rchListings.Clear();
 
+                //get a listing of all the cars
                 var listings = CarListingsDB.GetListings();
 
+                //set the filterName to the appropriate type of filter
                 FilterName filterName = FilterName.Null;
                 if (CarMakesDB.Get().Contains(filter))
                     filterName = FilterName.Make;
@@ -76,6 +99,7 @@ namespace CarDealershipFinal
                 else if (CarPriceRangesDB.GetRanges().Contains(filter))
                     filterName = FilterName.Price;
 
+                //find all the cars that match the filter
                 foreach (var listing in listings)
                 {
                     //have the newist listing at the top
@@ -84,25 +108,50 @@ namespace CarDealershipFinal
             }
         }
 
+        /// <summary>
+        /// opens the form to add a car
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnUpload_Click(object sender, EventArgs e)
         {
+            //upload a new car
             var addFrm = new frmUpload();
             addFrm.ShowDialog();
+
+            //after upload refresh the listings and filters to show the new car
             FillListings();
             FillFilters();
         }
 
+        /// <summary>
+        /// Shows all of the listings, used after a user has selected 
+        /// a filter to see all the cars again
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnViewAll_Click(object sender, EventArgs e)
         {
             FillListings();
         }
 
+        /// <summary>
+        /// Calls the FillFilteredListing function to find the cars that matach the filter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnFilter_Click(object sender, EventArgs e)
         {
             string filter = cboFilterBy.SelectedItem.ToString();
             FillFilteredListings(filter.Trim());
         }
 
+
+        /// <summary>
+        /// Closes the program
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
