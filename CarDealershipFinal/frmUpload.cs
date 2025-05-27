@@ -72,7 +72,7 @@ namespace CarDealershipFinal
                                     Convert.ToInt32(txtAge.Text.ToString()),
                                     Convert.ToDecimal(txtPrice.Text.ToString()),
                                     txtVaring.Text.ToString());
-                    CarListingsDB.Save(newCar);
+                    CarListingsDB<Listing>.Save(newCar);
                 }
                 else if (selectedMake == nameof(Toyota))
                 {
@@ -81,7 +81,7 @@ namespace CarDealershipFinal
                                     Convert.ToInt32(txtAge.Text.ToString()),
                                     Convert.ToDecimal(txtPrice.Text.ToString()),
                                     txtVaring.Text.ToString());
-                    CarListingsDB.Save(newCar);
+                    CarListingsDB<Listing>.Save(newCar);
                 }
                 else if (selectedMake == nameof(Ford))
                 {
@@ -90,7 +90,7 @@ namespace CarDealershipFinal
                                     Convert.ToInt32(txtAge.Text.ToString()),
                                     Convert.ToDecimal(txtPrice.Text.ToString()),
                                     txtVaring.Text.ToString());
-                    CarListingsDB.Save(newCar);
+                    CarListingsDB<Listing>.Save(newCar);
                 }
                 else if (selectedMake == nameof(Honda))
                 {
@@ -99,7 +99,7 @@ namespace CarDealershipFinal
                                     Convert.ToInt32(txtAge.Text.ToString()),
                                     Convert.ToDecimal(txtPrice.Text.ToString()),
                                     txtVaring.Text.ToString());
-                    CarListingsDB.Save(newCar);
+                    CarListingsDB<Listing>.Save(newCar);
                 }
 
                 this.Close();

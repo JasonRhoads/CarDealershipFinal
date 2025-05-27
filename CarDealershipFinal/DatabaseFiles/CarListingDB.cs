@@ -15,7 +15,7 @@ namespace CarDealershipFinal
     /// <summary>
     /// Functions to access datafiles
     /// </summary>
-    public static class CarListingsDB
+    public static class CarListingsDB<T> where T : Listing
     {
         private const string Directory = @"..\..\DataFiles\";
         private const string CarsPath = Directory + "InventoryItems.txt";
@@ -25,9 +25,9 @@ namespace CarDealershipFinal
         /// Gets the Car and ListingTime data from file
         /// </summary>
         /// <returns>List of Listing for each Car and ListingTime</returns>
-        public static List<Listing> GetListings()
+        public static List<T> GetListings()
         {
-            List<Listing> result = new List<Listing>();
+            List<T> result = new List<T>();
 
             try
             {
@@ -60,7 +60,7 @@ namespace CarDealershipFinal
                             c = new Honda(lines[1].Trim(), lines[2].Trim(), Convert.ToInt32(lines[3].Trim()), Convert.ToDecimal(lines[4].Trim()), lines[5].Trim());
 
                         //create a new listing for each iteration
-                        result.Add(new Listing(c, DateTime.Parse(times[index])));
+                        result.Add((T)new Listing(c, DateTime.Parse(times[index])));
                         index++;
                     }
                 }
@@ -87,9 +87,9 @@ namespace CarDealershipFinal
         /// Gets Cars and ListingTimes creates a CarList from the GetListing function.
         /// </summary>
         /// <returns>CarList listing object</returns>
-        public static CarList<Listing> Get()
+        public static CarList<T> Get()
         {
-            CarList<Listing> result = new CarList<Listing>();
+            CarList<T> result = new CarList<T>();
             var listings = GetListings();
             foreach (var listing in listings)
             {

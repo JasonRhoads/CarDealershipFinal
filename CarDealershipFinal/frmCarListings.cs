@@ -36,7 +36,7 @@ namespace CarDealershipFinal
         private void btnDelete_Click(object sender, EventArgs e)
         {
             //check to see if there is at least one listing to delete
-            if (CarListingsDB.Get().Count != 0)
+            if (CarListingsDB<Listing>.Get().Count != 0)
             {
                 var delFrm = new frmDeleteCar();
                 delFrm.ShowDialog();
@@ -66,7 +66,7 @@ namespace CarDealershipFinal
         {
             rchListings.Clear();
 
-            CarList<Listing> listings = CarListingsDB.Get();
+            CarList<Listing> listings = CarListingsDB<Listing>.Get();
             //have the newist listing at the top
             for (int i = 0; i < listings.Count; i++)
                 rchListings.Text += $"\t{listings[i].CreationTime.ToString()}\n" 
@@ -86,7 +86,7 @@ namespace CarDealershipFinal
                 rchListings.Clear();
 
                 //get a listing of all the cars
-                var listings = CarListingsDB.GetListings();
+                var listings = CarListingsDB<Listing>.GetListings();
 
                 //set the filterName to the appropriate type of filter
                 FilterName filterName = FilterName.Null;

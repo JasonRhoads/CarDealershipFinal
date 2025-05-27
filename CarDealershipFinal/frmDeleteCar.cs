@@ -18,7 +18,7 @@ namespace CarDealershipFinal
         /// <summary>
         /// Get a full list of the current listings
         /// </summary>
-        private List<Listing> listings = CarListingsDB.GetListings(); 
+        private List<Listing> listings = CarListingsDB<Listing>.GetListings(); 
         
         public frmDeleteCar()
         {
@@ -102,7 +102,7 @@ namespace CarDealershipFinal
 
 
                     //need to now rewrite the file with the car deleted
-                    CarListingsDB.UpdateAfterDeleted(listings);
+                    CarListingsDB<Listing>.UpdateAfterDeleted(listings);
 
                     this.Close();
                 }
