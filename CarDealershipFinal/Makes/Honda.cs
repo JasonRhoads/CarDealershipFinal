@@ -53,9 +53,13 @@ namespace CarDealershipFinal
             return result;
         }
 
+        /// <summary>
+        /// Clones a deep copy of a Honda car
+        /// </summary>
+        /// <returns></returns>
         public override object Clone()
         {
-            throw new NotImplementedException();
+            return new Honda(Model, Color, Age, Price, Trim);
         }
     }
 }

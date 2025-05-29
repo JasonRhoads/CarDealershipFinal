@@ -55,9 +55,13 @@ namespace CarDealershipFinal
             return result;
         }
 
+        /// <summary>
+        /// Clones a deep copy of a Toyota car
+        /// </summary>
+        /// <returns></returns>
         public override object Clone()
         {
-            throw new NotImplementedException();
+            return new Toyota(Model, Color, Age, Price, Mileage);
         }
     }
 }

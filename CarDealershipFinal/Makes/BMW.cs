@@ -54,9 +54,13 @@ namespace CarDealershipFinal
             return result;
         }
 
+        /// <summary>
+        /// Clones a deep copy of a BMW car
+        /// </summary>
+        /// <returns></returns>
         public override object Clone()
         {
-            throw new NotImplementedException();
+            return new BMW(Model, Color, Age, Price, Engine);
         }
     }
 }

@@ -50,9 +50,13 @@ namespace CarDealershipFinal
             return result;
         }
 
+        /// <summary>
+        /// Clones a deep copy of a Ford car
+        /// </summary>
+        /// <returns></returns>
         public override object Clone()
         {
-            throw new NotImplementedException();
+            return new Ford(Model, Color, Age, Price, Height);
         }
     }
 }
