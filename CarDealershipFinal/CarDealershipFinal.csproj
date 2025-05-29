@@ -73,6 +73,8 @@
       <DependentUpon>frmUpload.cs</DependentUpon>
     </Compile>
     <Compile Include="ICar.cs" />
+    <Compile Include="ICloneable.cs" />
+    <Compile Include="IComparable.cs" />
     <Compile Include="IDisplayable.cs" />
     <Compile Include="Listing.cs" />
     <Compile Include="Makes\BMW.cs" />

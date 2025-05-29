@@ -10,7 +10,7 @@ namespace CarDealershipFinal
     /// ICar interface for the basic attributes for a car
     /// Inherits IDisplayable
     /// </summary>
-    public interface ICar : IDisplayable
+    public interface ICar : IDisplayable, ICloneable, IComparable
     {   
         string Make { get; set; }
         string Model { get; set; }

@@ -66,5 +66,32 @@ namespace CarDealershipFinal
 
             return null;
         }
+
+        public abstract object Clone();
+
+        public bool CompareGreaterThan(decimal num)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CompareLessThan(decimal num)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CompareAge(int num1, int num2)
+        {
+            return CompareGreaterThan(num1) && CompareLessThan(num2);
+        }
+
+        public bool ComparePrice(decimal price1, decimal price2)
+        {
+            return CompareGreaterThan(price1) && CompareLessThan(price2);
+        }
+
+        public int CompareTo(object obj)
+        {
+            return CompareTo(obj);
+        }
     }
 }

@@ -52,5 +52,10 @@ namespace CarDealershipFinal
 
             return result;
         }
+
+        public override object Clone()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
