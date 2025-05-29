@@ -11,6 +11,7 @@ namespace CarDealershipFinal
     /// </summary>
     public interface IComparable
     {
-        int CompareTo(object obj);
+        bool CompareTo(decimal price);
+        bool CompareTo(int age);
     }
 }

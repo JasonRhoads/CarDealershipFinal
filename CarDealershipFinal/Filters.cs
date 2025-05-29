@@ -106,8 +106,8 @@ namespace CarDealershipFinal
                     int lowerLimit = ages[filter][0];
                     int upperLimit = ages[filter][1];
 
-                    int age = car.Age;
-                    if (age >= lowerLimit && age < upperLimit)  //Only include if within range
+                    //Compare the age of the car to the limits of the filter
+                    if (!car.CompareTo(lowerLimit) && car.CompareTo(upperLimit))  //Only include if within range
                     {
                         result += car.GetDisplayText();
                     }
@@ -119,8 +119,8 @@ namespace CarDealershipFinal
                     decimal lowerLimit = prices[filter][0];
                     decimal upperLimit = prices[filter][1];
 
-                    decimal price = car.Price;
-                    if (price >= lowerLimit && price < upperLimit)  //Only include if within range
+                    //Compare the price of the car to the limits of the filter
+                    if (!car.CompareTo(lowerLimit) && car.CompareTo(upperLimit)) //Only include if within range
                     {
                         result += car.GetDisplayText();
                     }

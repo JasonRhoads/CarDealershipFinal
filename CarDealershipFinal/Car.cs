@@ -68,30 +68,30 @@ namespace CarDealershipFinal
         }
 
         public abstract object Clone();
-
-        public bool CompareGreaterThan(decimal num)
+       
+        /// <summary>
+        /// Compares the price of a Car to a given value p
+        /// Checks to see if the price is lower than the given value
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns>true when the price is lower than the given value.
+        /// false when the price is higher than the given value.
+        /// </returns>
+        public bool CompareTo(decimal p)
         {
-            throw new NotImplementedException();
+            return Price < p;
         }
 
-        public bool CompareLessThan(decimal num)
+        /// <summary>
+        /// Compares the age of a Car to a given value a
+        /// Checks to see if the age is lower than the given value
+        /// </summary>
+        /// <param name="a"></param>
+        /// <returns>true when the age is lower than the given value.
+        /// false when the age is higher than the given value.</returns>
+        public bool CompareTo(int a)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool CompareAge(int num1, int num2)
-        {
-            return CompareGreaterThan(num1) && CompareLessThan(num2);
-        }
-
-        public bool ComparePrice(decimal price1, decimal price2)
-        {
-            return CompareGreaterThan(price1) && CompareLessThan(price2);
-        }
-
-        public int CompareTo(object obj)
-        {
-            return CompareTo(obj);
+            return Age < a;
         }
     }
 }
