@@ -18,6 +18,9 @@ namespace CarDealershipFinal
     public partial class frmCarListings : Form
     {
         public static bool userLoggedIn = false;
+        public static int startIndex = 0;
+        public static int endIndex = 0;
+        public static int totalListings = 0;
 
         public frmCarListings()
         {
@@ -61,8 +64,14 @@ namespace CarDealershipFinal
             rchListings.Clear();
 
             CarList<Listing> listings = CarListingsDB<Listing>.Get();
+           
+            //Get the total number of listings for pagination 
+            totalListings = listings.Count;
+
+            //set the end index for each page. 
+            endIndex = startIndex + 5 < listings.Count ? startIndex + 5 : listings.Count;
             //have the newist listing at the top
-            for (int i = 0; i < listings.Count; i++)
+            for (int i = startIndex; i < endIndex; i++)
                 rchListings.Text += $"\t{listings[i].CreationTime.ToString()}\n" 
                     + $"{listings[i].Car.GetDisplayText()}\n";
 
@@ -226,6 +235,51 @@ namespace CarDealershipFinal
         private void btnLogin_Click(object sender, EventArgs e)
         {
             Login();
+        }
+
+        /// <summary>
+        /// Sets the starting index to 0
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnFirstPage_Click(object sender, EventArgs e)
+        {
+            startIndex = 0;
+            FillListings();
+        }
+
+        /// <summary>
+        /// Sets the starting index for the last pages to show the reaming cars
+        /// ex. 11 cars the last page will show 1 car
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnLastPage_Click(object sender, EventArgs e)
+        {
+            startIndex = totalListings - totalListings % 5;
+            FillListings();
+        }
+
+        /// <summary>
+        /// Sets the index back a page stopping at the begining. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnPreviousPage_Click(object sender, EventArgs e)
+        {
+            startIndex = startIndex - 5 < 0 ? 0 : startIndex - 5;
+            FillListings();
+        }
+
+        /// <summary>
+        /// Sets the index for the next page stopping at the last page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnNextPage_Click(object sender, EventArgs e)
+        {
+            startIndex = startIndex + 5 >= totalListings ? totalListings - 5 : startIndex + 5;
+            FillListings();
         }
     }
 }

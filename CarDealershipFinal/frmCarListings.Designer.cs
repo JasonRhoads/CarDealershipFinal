@@ -165,6 +165,7 @@
             this.btnFirstPage.TabIndex = 8;
             this.btnFirstPage.Text = "First Page";
             this.btnFirstPage.UseVisualStyleBackColor = true;
+            this.btnFirstPage.Click += new System.EventHandler(this.btnFirstPage_Click);
             // 
             // btnLastPage
             // 
@@ -174,6 +175,7 @@
             this.btnLastPage.TabIndex = 11;
             this.btnLastPage.Text = "Last Page";
             this.btnLastPage.UseVisualStyleBackColor = true;
+            this.btnLastPage.Click += new System.EventHandler(this.btnLastPage_Click);
             // 
             // btnPreviousPage
             // 
@@ -183,6 +185,7 @@
             this.btnPreviousPage.TabIndex = 9;
             this.btnPreviousPage.Text = "<";
             this.btnPreviousPage.UseVisualStyleBackColor = true;
+            this.btnPreviousPage.Click += new System.EventHandler(this.btnPreviousPage_Click);
             // 
             // btnNextPage
             // 
@@ -192,6 +195,7 @@
             this.btnNextPage.TabIndex = 10;
             this.btnNextPage.Text = ">";
             this.btnNextPage.UseVisualStyleBackColor = true;
+            this.btnNextPage.Click += new System.EventHandler(this.btnNextPage_Click);
             // 
             // frmCarListings
             // 
