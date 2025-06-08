@@ -37,6 +37,7 @@
             this.cboFilterBy = new System.Windows.Forms.ComboBox();
             this.rchListings = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnLogin = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnFilter
@@ -44,7 +45,7 @@
             this.btnFilter.Location = new System.Drawing.Point(304, 29);
             this.btnFilter.Name = "btnFilter";
             this.btnFilter.Size = new System.Drawing.Size(75, 23);
-            this.btnFilter.TabIndex = 4;
+            this.btnFilter.TabIndex = 1;
             this.btnFilter.Text = "&Filter";
             this.btnFilter.UseVisualStyleBackColor = true;
             this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
@@ -54,29 +55,31 @@
             this.btnViewAll.Location = new System.Drawing.Point(304, 76);
             this.btnViewAll.Name = "btnViewAll";
             this.btnViewAll.Size = new System.Drawing.Size(75, 23);
-            this.btnViewAll.TabIndex = 0;
+            this.btnViewAll.TabIndex = 2;
             this.btnViewAll.Text = "&View All";
             this.btnViewAll.UseVisualStyleBackColor = true;
             this.btnViewAll.Click += new System.EventHandler(this.btnViewAll_Click);
             // 
             // btnUpload
             // 
-            this.btnUpload.Location = new System.Drawing.Point(304, 123);
+            this.btnUpload.Location = new System.Drawing.Point(304, 159);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(75, 23);
             this.btnUpload.TabIndex = 5;
             this.btnUpload.Text = "&Upload";
             this.btnUpload.UseVisualStyleBackColor = true;
+            this.btnUpload.Visible = false;
             this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(304, 170);
+            this.btnDelete.Location = new System.Drawing.Point(304, 188);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 6;
             this.btnDelete.Text = "&Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Visible = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnExit
@@ -96,7 +99,7 @@
             this.cboFilterBy.Location = new System.Drawing.Point(83, 31);
             this.cboFilterBy.Name = "cboFilterBy";
             this.cboFilterBy.Size = new System.Drawing.Size(204, 21);
-            this.cboFilterBy.TabIndex = 2;
+            this.cboFilterBy.TabIndex = 0;
             // 
             // rchListings
             // 
@@ -118,6 +121,16 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Filter:";
             // 
+            // btnLogin
+            // 
+            this.btnLogin.Location = new System.Drawing.Point(37, 247);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(75, 23);
+            this.btnLogin.TabIndex = 9;
+            this.btnLogin.Text = "&Login";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
             // frmCarListings
             // 
             this.AcceptButton = this.btnViewAll;
@@ -125,6 +138,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(425, 289);
+            this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.rchListings);
             this.Controls.Add(this.cboFilterBy);
@@ -153,6 +167,7 @@
         private System.Windows.Forms.ComboBox cboFilterBy;
         private System.Windows.Forms.RichTextBox rchListings;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnLogin;
     }
 }
 

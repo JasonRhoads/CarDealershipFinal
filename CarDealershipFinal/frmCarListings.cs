@@ -42,32 +42,6 @@ namespace CarDealershipFinal
         }
 
         /// <summary>
-        /// Opens the form to delete a car
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            Login();
-            if (userLoggedIn)
-            {
-                //check to see if there is at least one listing to delete
-                if (CarListingsDB<Listing>.Get().Count != 0)
-                {
-                    var delFrm = new frmDeleteCar();
-                    delFrm.OnRefreshListings += FillListings;
-                    delFrm.OnRefreshFilters += FillFilters;
-
-                    delFrm.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show("Please upload a car, nothing to delete", "Empty Lot");
-                }
-            }
-        }
-
-        /// <summary>
         /// Clear the filters and reload them incase some were added or removed
         /// </summary>
         private void FillFilters()
@@ -142,10 +116,20 @@ namespace CarDealershipFinal
                 }
                 else
                 {
-                   Text += "; Hello, " + loginForm.Tag.ToString();
+                    Text += "; Hello, " + loginForm.Tag.ToString();
+                    btnUpload.Visible = true;
+                    btnDelete.Visible = true;
+                    btnLogin.Text = "Logout";
                 }
             }
-
+            else
+            {
+                userLoggedIn = false;
+                Text = "Listings";
+                btnUpload.Visible = false;
+                btnDelete.Visible = false;
+                btnLogin.Text = "Login";
+            }
 
         }
 
@@ -156,7 +140,6 @@ namespace CarDealershipFinal
         /// <param name="e"></param>
         private void btnUpload_Click(object sender, EventArgs e)
         {
-            Login();
             if (userLoggedIn)
             {
                 //upload a new car
@@ -167,6 +150,31 @@ namespace CarDealershipFinal
                 addFrm.OnRefreshFilters += FillFilters;
 
                 addFrm.ShowDialog();
+            }
+        }
+
+        /// <summary>
+        /// Opens the form to delete a car
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (userLoggedIn)
+            {
+                //check to see if there is at least one listing to delete
+                if (CarListingsDB<Listing>.Get().Count != 0)
+                {
+                    var delFrm = new frmDeleteCar();
+                    delFrm.OnRefreshListings += FillListings;
+                    delFrm.OnRefreshFilters += FillFilters;
+
+                    delFrm.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Please upload a car, nothing to delete", "Empty Lot");
+                }
             }
         }
 
@@ -201,6 +209,17 @@ namespace CarDealershipFinal
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+
+        /// <summary>
+        /// Logs the user in or out
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            Login();
         }
     }
 }
