@@ -12,10 +12,17 @@ namespace CarDealershipFinal
 {
     public partial class frmUserLogin : Form
     {
+        private string loginUsername, loginPassword;
+
+        private Dictionary<string, string> users = new Dictionary<string, string>;
+
         public frmUserLogin()
         {
             InitializeComponent();
         }
+
+
+
         private void btnLogin_Click(object sender, EventArgs e)
         {
 

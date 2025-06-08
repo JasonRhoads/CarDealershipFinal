@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -126,20 +127,37 @@ namespace CarDealershipFinal
         }
 
         /// <summary>
-        /// opens the form to add a car
+        /// If the user is logged in, opens the form to add a car, if not, pops up the login screen
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnUpload_Click(object sender, EventArgs e)
         {
-            //upload a new car
-            var addFrm = new frmUpload();
+            if (!userLoggedIn)
+            {
+                frmUserLogin loginForm = new frmUserLogin();
 
-            //Wire event to refresh the listings and filters to show the new car
-            addFrm.OnRefreshListings += FillListings;
-            addFrm.OnRefreshFilters += FillFilters;
+                if (!(loginForm.ShowDialog() == DialogResult.OK)
+                {
+                    MessageBox.Show("Error showing login screen");
+                }
+            }
 
-            addFrm.ShowDialog();
+            if (userLoggedIn)
+            {
+                //upload a new car
+                var addFrm = new frmUpload();
+
+                //Wire event to refresh the listings and filters to show the new car
+                addFrm.OnRefreshListings += FillListings;
+                addFrm.OnRefreshFilters += FillFilters;
+
+                addFrm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Not Logged In!");
+            }
         }
 
         /// <summary>
