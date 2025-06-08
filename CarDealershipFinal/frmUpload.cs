@@ -18,6 +18,14 @@ namespace CarDealershipFinal
     /// </summary>
     public partial class frmUpload : Form
     {
+        // Define delegate type
+        public delegate void RefreshEventHandler();
+
+        // Define events
+        public event RefreshEventHandler OnRefreshListings;
+        public event RefreshEventHandler OnRefreshFilters;
+
+
         public frmUpload()
         {
             InitializeComponent();
@@ -101,6 +109,9 @@ namespace CarDealershipFinal
                                     txtVaring.Text.ToString());
                     CarListingsDB<Listing>.Save(newCar);
                 }
+
+                OnRefreshListings?.Invoke();
+                OnRefreshFilters?.Invoke();
 
                 this.Close();
             }

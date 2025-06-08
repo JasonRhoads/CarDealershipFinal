@@ -21,6 +21,16 @@ namespace CarDealershipFinal
             InitializeComponent();
         }
 
+        //Google searched and found a RefreshEventHandler
+        //https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.refresheventhandler?view=net-9.0
+
+        // Define delegate
+        public delegate void RefreshEventHandler();
+
+        // Define event
+        public event RefreshEventHandler OnRefreshListings;
+        public event RefreshEventHandler OnRefreshFilters;
+
         //Load the filters and the full listing of cars
         private void frmCarListings_Load(object sender, EventArgs e)
         {
@@ -39,9 +49,10 @@ namespace CarDealershipFinal
             if (CarListingsDB<Listing>.Get().Count != 0)
             {
                 var delFrm = new frmDeleteCar();
+                delFrm.OnRefreshListings += FillListings;
+                delFrm.OnRefreshFilters += FillFilters;
+                
                 delFrm.ShowDialog();
-                FillListings();
-                FillFilters();
             }
             else
             {
@@ -57,6 +68,8 @@ namespace CarDealershipFinal
             cboFilterBy.Items.Clear();
             cboFilterBy.Items.AddRange(Filters.Get());
             cboFilterBy.SelectedIndex = 0;
+
+            OnRefreshFilters?.Invoke();
         }
 
         /// <summary>
@@ -71,6 +84,8 @@ namespace CarDealershipFinal
             for (int i = 0; i < listings.Count; i++)
                 rchListings.Text += $"\t{listings[i].CreationTime.ToString()}\n" 
                     + $"{listings[i].Car.GetDisplayText()}\n";
+
+            OnRefreshListings?.Invoke();
         }
 
         /// <summary>
@@ -117,11 +132,12 @@ namespace CarDealershipFinal
         {
             //upload a new car
             var addFrm = new frmUpload();
-            addFrm.ShowDialog();
 
-            //after upload refresh the listings and filters to show the new car
-            FillListings();
-            FillFilters();
+            //Wire event to refresh the listings and filters to show the new car
+            addFrm.OnRefreshListings += FillListings;
+            addFrm.OnRefreshFilters += FillFilters;
+
+            addFrm.ShowDialog();
         }
 
         /// <summary>

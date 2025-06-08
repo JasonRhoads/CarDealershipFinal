@@ -15,6 +15,15 @@ namespace CarDealershipFinal
     /// </summary>
     public partial class frmDeleteCar : Form
     {
+
+        // Define delegate type
+        public delegate void RefreshEventHandler();
+
+        // Define events
+        public event RefreshEventHandler OnRefreshListings;
+        public event RefreshEventHandler OnRefreshFilters;
+
+
         /// <summary>
         /// Get a full list of the current listings
         /// </summary>
@@ -110,6 +119,9 @@ namespace CarDealershipFinal
 
                     //need to now rewrite the file with the car deleted
                     CarListingsDB<Listing>.UpdateAfterDeleted(listings);
+
+                    OnRefreshListings?.Invoke();
+                    OnRefreshFilters?.Invoke();
 
                     this.Close();
                 }
