@@ -278,7 +278,7 @@ namespace CarDealershipFinal
         /// <param name="e"></param>
         private void btnNextPage_Click(object sender, EventArgs e)
         {
-            startIndex = startIndex + 5 >= totalListings ? totalListings - 5 : startIndex + 5;
+            startIndex = startIndex + 5 >= totalListings ? totalListings - totalListings % 5 : startIndex + 5;
             FillListings();
         }
     }
