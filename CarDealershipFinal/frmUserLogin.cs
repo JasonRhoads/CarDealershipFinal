@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CarDealershipFinal.DatabaseFiles;
 
 namespace CarDealershipFinal
 {
@@ -14,7 +15,7 @@ namespace CarDealershipFinal
     {
         private string loginUsername, loginPassword;
 
-        private Dictionary<string, string> users = new Dictionary<string, string>;
+        private Dictionary<string, string> users = UserDB.Get();
 
         public frmUserLogin()
         {
@@ -25,11 +26,29 @@ namespace CarDealershipFinal
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-
+            if (users.ContainsKey(txtUsername.Text))
+            {
+                if (txtPassword.Text == users[txtUsername.Text])
+                {
+                    frmCarListings.userLoggedIn = true;
+                    DialogResult = DialogResult.OK;
+                    Tag = txtUsername.Text;
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Username and/or password do not match.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Username and/or password do not match.");
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.No;
             this.Close();
         }
 

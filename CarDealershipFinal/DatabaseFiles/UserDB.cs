@@ -26,40 +26,17 @@ namespace CarDealershipFinal.DatabaseFiles
             {
                 Dictionary<string, string> output = new Dictionary<string, string>();
 
-                var users = textIn.ReadToEnd().Trim().Split('|');
+                var users = textIn.ReadToEnd().Trim().Split('\n');
                 string username = "";
                 string password = "";
 
                 foreach (var up in users)
                 {
-                    var lines = up.Split('\n');
-                    for (int i = 0; i < lines.Length; i++)
-                    {
-                        var line = lines[i];
-
-                        if (i == 0)
-                            username = line.Trim();
-                        else if (i == 1)
-                            password = line.Trim();
-                        else if (i == 2)
-                        {
-                            output.Add(username, password);
-                        }
-
-                    }
-                }
-
-
-                for (int i = 0; i < textIn.)
-                {
-
-                    //textIn.ReadToEnd().Trim().Split('|').ToList()
-                    string username = str.Split('|')[0];
-                    string password = str.Split('|')[1];
-
+                    username = up.Split('|')[0];
+                    password = up.Split('|')[1];
+                    
                     output.Add(username, password);
                 }
-
 
                 return output;
             }
@@ -83,5 +60,4 @@ namespace CarDealershipFinal.DatabaseFiles
             return null;
         }
     }
-}
 }

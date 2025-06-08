@@ -48,18 +48,22 @@ namespace CarDealershipFinal
         /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            //check to see if there is at least one listing to delete
-            if (CarListingsDB<Listing>.Get().Count != 0)
+            Login();
+            if (userLoggedIn)
             {
-                var delFrm = new frmDeleteCar();
-                delFrm.OnRefreshListings += FillListings;
-                delFrm.OnRefreshFilters += FillFilters;
-                
-                delFrm.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("Please upload a car, nothing to delete", "Empty Lot");
+                //check to see if there is at least one listing to delete
+                if (CarListingsDB<Listing>.Get().Count != 0)
+                {
+                    var delFrm = new frmDeleteCar();
+                    delFrm.OnRefreshListings += FillListings;
+                    delFrm.OnRefreshFilters += FillFilters;
+
+                    delFrm.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Please upload a car, nothing to delete", "Empty Lot");
+                }
             }
         }
 
@@ -126,6 +130,25 @@ namespace CarDealershipFinal
             }
         }
 
+        private void Login()
+        {
+            if (!userLoggedIn)
+            {
+                frmUserLogin loginForm = new frmUserLogin();
+
+                if (loginForm.ShowDialog() != DialogResult.OK)
+                {
+                    MessageBox.Show("Unable to log in.");
+                }
+                else
+                {
+                   Text += "; Hello, " + loginForm.Tag.ToString();
+                }
+            }
+
+
+        }
+
         /// <summary>
         /// If the user is logged in, opens the form to add a car, if not, pops up the login screen
         /// </summary>
@@ -133,16 +156,7 @@ namespace CarDealershipFinal
         /// <param name="e"></param>
         private void btnUpload_Click(object sender, EventArgs e)
         {
-            if (!userLoggedIn)
-            {
-                frmUserLogin loginForm = new frmUserLogin();
-
-                if (!(loginForm.ShowDialog() == DialogResult.OK)
-                {
-                    MessageBox.Show("Error showing login screen");
-                }
-            }
-
+            Login();
             if (userLoggedIn)
             {
                 //upload a new car
@@ -153,10 +167,6 @@ namespace CarDealershipFinal
                 addFrm.OnRefreshFilters += FillFilters;
 
                 addFrm.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("Not Logged In!");
             }
         }
 
