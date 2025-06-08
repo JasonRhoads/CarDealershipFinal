@@ -20,7 +20,8 @@ namespace CarDealershipFinal
         public static bool userLoggedIn = false;
         public static int startIndex = 0;
         public static int endIndex = 0;
-        public static int totalListings = 0;
+
+        public static List<string> paginationlistings = new List<string>();
 
         public frmCarListings()
         {
@@ -62,18 +63,16 @@ namespace CarDealershipFinal
         private void FillListings()
         {
             rchListings.Clear();
+            paginationlistings.Clear();
 
             CarList<Listing> listings = CarListingsDB<Listing>.Get();
-           
-            //Get the total number of listings for pagination 
-            totalListings = listings.Count;
-
-            //set the end index for each page. 
-            endIndex = startIndex + 5 < listings.Count ? startIndex + 5 : listings.Count;
+                     
             //have the newist listing at the top
-            for (int i = startIndex; i < endIndex; i++)
-                rchListings.Text += $"\t{listings[i].CreationTime.ToString()}\n" 
-                    + $"{listings[i].Car.GetDisplayText()}\n";
+            for (int i = 0; i < listings.Count; i++)
+                paginationlistings.Add($"\t{listings[i].CreationTime.ToString()}\n" 
+                    + $"{listings[i].Car.GetDisplayText()}\n");
+
+            PaginateListings();
 
             OnRefreshListings?.Invoke();
         }
@@ -89,6 +88,8 @@ namespace CarDealershipFinal
             {
                 //clear the rich text box
                 rchListings.Clear();
+                paginationlistings.Clear();
+
 
                 //get a listing of all the cars
                 var listings = CarListingsDB<Listing>.GetListings();
@@ -107,9 +108,18 @@ namespace CarDealershipFinal
                 //find all the cars that match the filter
                 foreach (var listing in listings)
                 {
-                    //have the newist listing at the top
-                    rchListings.Text = listing.GetFilteredString(filterName, filter) + rchListings.Text;
+                    if (listing.GetFilteredString(filterName, filter) != null)
+                    {
+                        //have the newist listing at the top
+                        paginationlistings.Add(listing.GetFilteredString(filterName, filter));
+                    }
                 }
+
+                paginationlistings.Reverse();
+
+                //set a new starting index for pagination
+                startIndex = 0;
+                PaginateListings();
             }
         }
 
@@ -245,7 +255,7 @@ namespace CarDealershipFinal
         private void btnFirstPage_Click(object sender, EventArgs e)
         {
             startIndex = 0;
-            FillListings();
+            PaginateListings();
         }
 
         /// <summary>
@@ -256,8 +266,8 @@ namespace CarDealershipFinal
         /// <param name="e"></param>
         private void btnLastPage_Click(object sender, EventArgs e)
         {
-            startIndex = totalListings - totalListings % 5;
-            FillListings();
+            startIndex = paginationlistings.Count - paginationlistings.Count % 5;
+            PaginateListings();
         }
 
         /// <summary>
@@ -268,7 +278,7 @@ namespace CarDealershipFinal
         private void btnPreviousPage_Click(object sender, EventArgs e)
         {
             startIndex = startIndex - 5 < 0 ? 0 : startIndex - 5;
-            FillListings();
+            PaginateListings();
         }
 
         /// <summary>
@@ -278,8 +288,23 @@ namespace CarDealershipFinal
         /// <param name="e"></param>
         private void btnNextPage_Click(object sender, EventArgs e)
         {
-            startIndex = startIndex + 5 >= totalListings ? totalListings - totalListings % 5 : startIndex + 5;
-            FillListings();
+            startIndex = startIndex + 5 >= paginationlistings.Count ? paginationlistings.Count - paginationlistings.Count % 5 : startIndex + 5;
+            PaginateListings();
+        }
+
+        private void PaginateListings()
+        {
+            //set the end index for each page. 
+            endIndex = startIndex + 5 < paginationlistings.Count ? startIndex + 5 : paginationlistings.Count;
+
+            //clear the listings
+            rchListings.Clear();
+
+            //display the listings
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                rchListings.Text += paginationlistings[i];
+            }
         }
     }
 }
