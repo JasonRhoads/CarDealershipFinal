@@ -55,6 +55,12 @@
     <Compile Include="DatabaseFiles\CarPriceRangesDB.cs" />
     <Compile Include="DatabaseFiles\UserDB.cs" />
     <Compile Include="Filters.cs" />
+    <Compile Include="frmAdminControls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAdminControls.Designer.cs">
+      <DependentUpon>frmAdminControls.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCarListings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +96,9 @@
     <Compile Include="Makes\Toyota.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmAdminControls.resx">
+      <DependentUpon>frmAdminControls.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCarListings.resx">
       <DependentUpon>frmCarListings.cs</DependentUpon>
     </EmbeddedResource>
