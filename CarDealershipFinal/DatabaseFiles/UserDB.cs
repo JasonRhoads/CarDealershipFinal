@@ -18,24 +18,30 @@ namespace CarDealershipFinal.DatabaseFiles
         /// Gets list of users splitting up usernames and passwords
         /// </summary>
         /// <returns>List of string, strings that contain the Users available</returns>
-        public static Dictionary<string, string> Get()
+        public static Dictionary<string, string[]> Get()
         {
             StreamReader textIn = new StreamReader(new FileStream(Path, FileMode.Open, FileAccess.Read));
 
             try
             {
-                Dictionary<string, string> output = new Dictionary<string, string>();
+                Dictionary<string, string[]> output = new Dictionary<string, string[]>();
 
                 var users = textIn.ReadToEnd().Trim().Split('\n');
                 string username = "";
                 string password = "";
+                string role = "";
 
                 foreach (var up in users)
                 {
                     username = up.Split('|')[0].Trim();
                     password = up.Split('|')[1].Trim();
-                    
-                    output.Add(username, password);
+                    role = up.Split('|')[2].Trim();
+
+                    string[] val = new string[2];
+                    val[0] = password;
+                    val[1] = role;
+
+                    output.Add(username, val);
                 }
 
                 return output;

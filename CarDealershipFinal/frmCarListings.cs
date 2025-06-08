@@ -116,18 +116,24 @@ namespace CarDealershipFinal
                 }
                 else
                 {
-                    Text += "; Hello, " + loginForm.Tag.ToString();
+                    lblGreeting.Text = "Hello, " + loginForm.Tag.ToString();
                     btnUpload.Visible = true;
                     btnDelete.Visible = true;
                     btnLogin.Text = "Logout";
+
+                    if (false) //replace with check for user role
+                    {
+                        btnAdmin.Visible = true;
+                    }
                 }
             }
             else
             {
                 userLoggedIn = false;
-                Text = "Listings";
+                lblGreeting.Text = "Hello, Guest";
                 btnUpload.Visible = false;
                 btnDelete.Visible = false;
+                btnAdmin.Visible = false;
                 btnLogin.Text = "Login";
             }
 

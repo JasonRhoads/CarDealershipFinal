@@ -15,7 +15,7 @@ namespace CarDealershipFinal
     {
         private string loginUsername, loginPassword;
 
-        private Dictionary<string, string> users = UserDB.Get();
+        private Dictionary<string, string[]> users = UserDB.Get();
 
         public frmUserLogin()
         {
@@ -28,11 +28,11 @@ namespace CarDealershipFinal
         {
             if (users.ContainsKey(txtUsername.Text))
             {
-                if (txtPassword.Text == users[txtUsername.Text])
+                if (txtPassword.Text == users[txtUsername.Text][0])
                 {
                     frmCarListings.userLoggedIn = true;
                     DialogResult = DialogResult.OK;
-                    Tag = txtUsername.Text;
+                    Tag = users[txtUsername.Text][1] + " " + txtUsername.Text;
                     this.Close();
                 }
                 else

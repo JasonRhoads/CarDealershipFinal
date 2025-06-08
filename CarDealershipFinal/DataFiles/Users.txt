@@ -1,2 +1,4 @@
-﻿Jason|password
-Andrew|password
+﻿Jason|password|admin
+Andrew|password|admin
+Samantha|password|user
+Bob|password|user
