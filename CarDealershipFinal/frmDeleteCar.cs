@@ -62,8 +62,15 @@ namespace CarDealershipFinal
             //Check to see if a car was selected and not on select a car...
             if (cboDeleteCar.SelectedIndex != 0)
             {
-                //show the full details of the car when selected
-                rchDeleteDetails.Text = listings[cboDeleteCar.SelectedIndex - 1].ToString();
+                //LINQ statement to display the details of the selected car
+                var selectedListing = listings
+                    .Where((listing, index) => index == cboDeleteCar.SelectedIndex - 1)
+                    .FirstOrDefault();
+
+                if (selectedListing != null)
+                {
+                    rchDeleteDetails.Text = selectedListing.ToString();
+                }
             }
             else
             {
@@ -109,7 +116,10 @@ namespace CarDealershipFinal
             }
             catch
             {
-                MessageBox.Show("There was an error in deleting the car", "Entry Error");
+                if (cboDeleteCar.SelectedIndex == 0)
+                    MessageBox.Show("Please select a car to delete", "Entry Error");
+                else
+                    MessageBox.Show("There was an error in deleting the car", "Entry Error");
             }
         }
 
