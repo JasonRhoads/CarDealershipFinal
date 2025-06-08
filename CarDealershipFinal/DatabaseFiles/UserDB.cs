@@ -32,8 +32,8 @@ namespace CarDealershipFinal.DatabaseFiles
 
                 foreach (var up in users)
                 {
-                    username = up.Split('|')[0];
-                    password = up.Split('|')[1];
+                    username = up.Split('|')[0].Trim();
+                    password = up.Split('|')[1].Trim();
                     
                     output.Add(username, password);
                 }
