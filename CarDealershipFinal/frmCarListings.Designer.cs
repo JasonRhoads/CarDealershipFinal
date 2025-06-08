@@ -124,7 +124,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnExit;
-            this.ClientSize = new System.Drawing.Size(428, 282);
+            this.ClientSize = new System.Drawing.Size(425, 289);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.rchListings);
             this.Controls.Add(this.cboFilterBy);

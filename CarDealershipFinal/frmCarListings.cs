@@ -16,6 +16,8 @@ namespace CarDealershipFinal
     /// </summary>
     public partial class frmCarListings : Form
     {
+        public static bool userLoggedIn = false;
+
         public frmCarListings()
         {
             InitializeComponent();
