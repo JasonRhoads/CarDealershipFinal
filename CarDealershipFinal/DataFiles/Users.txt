@@ -1,4 +1,5 @@
-﻿Jason|password|admin
+Jason|password|admin
 Andrew|password|admin
 Samantha|password|user
 Bob|password|user
+a|p|admin

@@ -20,6 +20,8 @@ namespace CarDealershipFinal
         public static bool userLoggedIn = false;
         public static int startIndex = 0;
         public static int endIndex = 0;
+        public static int totalListings = 0;
+        public static string userRole = "guest";
 
         public static List<string> paginationlistings = new List<string>();
 
@@ -123,6 +125,9 @@ namespace CarDealershipFinal
             }
         }
 
+        /// <summary>
+        /// Logs the user in or out and gives them access to the upload, delete, and/or admin controls
+        /// </summary>
         private void Login()
         {
             if (!userLoggedIn)
@@ -140,7 +145,7 @@ namespace CarDealershipFinal
                     btnDelete.Visible = true;
                     btnLogin.Text = "Logout";
 
-                    if (false) //replace with check for user role
+                    if (userRole == "admin")
                     {
                         btnAdmin.Visible = true;
                     }
@@ -149,7 +154,9 @@ namespace CarDealershipFinal
             else
             {
                 userLoggedIn = false;
-                lblGreeting.Text = "Hello, Guest";
+                userRole = "guest";
+                lblGreeting.Text = "Hello, guest";
+
                 btnUpload.Visible = false;
                 btnDelete.Visible = false;
                 btnAdmin.Visible = false;
@@ -305,6 +312,17 @@ namespace CarDealershipFinal
             {
                 rchListings.Text += paginationlistings[i];
             }
+        }
+
+        /// <summary>
+        /// Displays the admin control panel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAdmin_Click(object sender, EventArgs e)
+        {
+            frmAdminControls f1 = new frmAdminControls();
+            f1.ShowDialog();
         }
     }
 }

@@ -31,8 +31,9 @@ namespace CarDealershipFinal
                 if (txtPassword.Text == users[txtUsername.Text][0])
                 {
                     frmCarListings.userLoggedIn = true;
-                    DialogResult = DialogResult.OK;
+                    frmCarListings.userRole = users[txtUsername.Text][1];
                     Tag = users[txtUsername.Text][1] + " " + txtUsername.Text;
+                    DialogResult = DialogResult.OK;
                     this.Close();
                 }
                 else

@@ -65,5 +65,96 @@ namespace CarDealershipFinal.DatabaseFiles
 
             return null;
         }
+
+        /// <summary>
+        /// Add function takes three strings for username, password, role
+        /// and writes a user with those characteristics
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="role"></param>
+        public static void Add(string username, string password, string role)
+        {
+            StreamReader input = new StreamReader(new FileStream(Path, FileMode.Open, FileAccess.ReadWrite));
+            StreamWriter output;
+            try
+            {
+                string userResult = input.ReadToEnd();
+                userResult += $"\n{username}|{password}|{role}";
+                input.Close();
+                userResult = userResult.Trim();
+
+                output = new StreamWriter(new FileStream(Path, FileMode.Create, FileAccess.ReadWrite));
+                output.Write(userResult);
+
+                output.Close();
+
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show(Path + " not found.\n"
+                    , "File Not Found");
+            }
+            catch (DirectoryNotFoundException)
+            {
+                MessageBox.Show(Directory + " not found.", "Directory Not Found");
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(ex.Message, "IOException");
+            }
+        }
+
+
+
+        /// <summary>
+        /// Remove function takes one string for username
+        /// and deletes the user with that name
+        /// </summary>
+        /// <param name="username"></param>
+        public static void Remove(string username)//, string password, string role)
+        {
+            StreamReader input = new StreamReader(new FileStream(Path, FileMode.Open, FileAccess.ReadWrite));
+            StreamWriter output;
+            try
+            {
+                string[] lines = input.ReadToEnd().Split('\n');
+                input.Close();
+
+                string userResult = "";
+
+                foreach (string line in lines)
+                {
+                    string name = line.Split('|')[0];
+
+                    if (name != username)
+                    {
+                        userResult += "\n" + line;
+                        userResult = userResult.Trim();
+                    }
+                }
+
+                output = new StreamWriter(new FileStream(Path, FileMode.Create, FileAccess.ReadWrite));
+                output.Write(userResult);
+
+                output.Close();
+
+
+
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show(Path + " not found.\n"
+                    , "File Not Found");
+            }
+            catch (DirectoryNotFoundException)
+            {
+                MessageBox.Show(Directory + " not found.", "Directory Not Found");
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(ex.Message, "IOException");
+            }
+        }
     }
 }
