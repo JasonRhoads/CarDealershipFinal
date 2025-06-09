@@ -53,6 +53,7 @@
     <Compile Include="DatabaseFiles\CarListingDB.cs" />
     <Compile Include="DatabaseFiles\CarMakesDB.cs" />
     <Compile Include="DatabaseFiles\CarPriceRangesDB.cs" />
+    <Compile Include="DatabaseFiles\PasswordHasher.cs" />
     <Compile Include="DatabaseFiles\UserDB.cs" />
     <Compile Include="Filters.cs" />
     <Compile Include="frmAdminControls.cs">
