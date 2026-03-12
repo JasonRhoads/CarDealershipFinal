@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarDealershipFinal
+namespace CarBusiness
 {
     /// <summary>
     /// ICar interface for the basic attributes for a car

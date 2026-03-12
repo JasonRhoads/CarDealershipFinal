@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarDealershipFinal
+namespace CarBusiness
 {
      /// <summary>
      /// Create a list of Listings, Car + creation DateTime

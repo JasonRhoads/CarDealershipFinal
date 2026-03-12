@@ -1,4 +1,6 @@
-﻿using CarDealershipFinal.DatabaseFiles;
+﻿
+using CarData;
+using CarBusiness;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,6 +26,7 @@ namespace CarDealershipFinal
         public static string userRole = "guest";
 
         public static List<string> paginationlistings = new List<string>();
+        private CarListingService service = new CarListingService();
 
         public frmCarListings()
         {
@@ -67,9 +70,9 @@ namespace CarDealershipFinal
             rchListings.Clear();
             paginationlistings.Clear();
 
-            CarList<Listing> listings = CarListingsDB<Listing>.Get();
-                     
-            //have the newist listing at the top
+            List<Listing> listings = service.GetListings();
+
+            //have the newest listing at the top
             for (int i = 0; i < listings.Count; i++)
                 paginationlistings.Add($"\t{listings[i].CreationTime.ToString()}\n" 
                     + $"{listings[i].Car.GetDisplayText()}\n");
@@ -80,12 +83,12 @@ namespace CarDealershipFinal
         }
 
         /// <summary>
-        /// Show the cars that matach the filter selected
+        /// Show the cars that match the filter selected
         /// </summary>
         /// <param name="filter"></param>
         private void FillFilteredListings(string filter)
         {
-            //check to see if a filter was slected
+            //check to see if a filter was selected
             if (cboFilterBy.SelectedIndex != 0)
             {
                 //clear the rich text box
@@ -94,7 +97,8 @@ namespace CarDealershipFinal
 
 
                 //get a listing of all the cars
-                var listings = CarListingsDB<Listing>.GetListings();
+                CarListingService service = new CarListingService();
+                var listings = service.GetListings();
 
                 //set the filterName to the appropriate type of filter
                 FilterName filterName = FilterName.Null;
@@ -112,7 +116,7 @@ namespace CarDealershipFinal
                 {
                     if (listing.GetFilteredString(filterName, filter) != null)
                     {
-                        //have the newist listing at the top
+                        //have the newest listing at the top
                         paginationlistings.Add(listing.GetFilteredString(filterName, filter));
                     }
                 }
@@ -195,7 +199,7 @@ namespace CarDealershipFinal
             if (userLoggedIn)
             {
                 //check to see if there is at least one listing to delete
-                if (CarListingsDB<Listing>.Get().Count != 0)
+                if (service.GetListings().Count != 0)
                 {
                     var delFrm = new frmDeleteCar();
                     delFrm.OnRefreshListings += FillListings;
@@ -222,7 +226,7 @@ namespace CarDealershipFinal
         }
 
         /// <summary>
-        /// Calls the FillFilteredListing function to find the cars that matach the filter
+        /// Calls the FillFilteredListing function to find the cars that match the filter
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -278,7 +282,7 @@ namespace CarDealershipFinal
         }
 
         /// <summary>
-        /// Sets the index back a page stopping at the begining. 
+        /// Sets the index back a page stopping at the beginning. 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

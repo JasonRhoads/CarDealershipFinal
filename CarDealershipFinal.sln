@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValidationLibrary", "Valida
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValidationLibraryTest", "ValidationLibraryTest\ValidationLibraryTest.csproj", "{286CEBF8-F657-450A-87EE-DB703A43875B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarData", "CarData\CarData.csproj", "{32D6DB01-128B-4E64-AE5E-506F6FF813EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarBusiness", "CarBusiness\CarBusiness.csproj", "{671DC8D6-D411-4D2B-BC4D-033BC6C211DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +35,14 @@ Global
 		{286CEBF8-F657-450A-87EE-DB703A43875B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{286CEBF8-F657-450A-87EE-DB703A43875B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{286CEBF8-F657-450A-87EE-DB703A43875B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32D6DB01-128B-4E64-AE5E-506F6FF813EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32D6DB01-128B-4E64-AE5E-506F6FF813EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32D6DB01-128B-4E64-AE5E-506F6FF813EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32D6DB01-128B-4E64-AE5E-506F6FF813EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{671DC8D6-D411-4D2B-BC4D-033BC6C211DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{671DC8D6-D411-4D2B-BC4D-033BC6C211DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{671DC8D6-D411-4D2B-BC4D-033BC6C211DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{671DC8D6-D411-4D2B-BC4D-033BC6C211DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

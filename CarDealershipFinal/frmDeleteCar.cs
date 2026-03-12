@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CarData;
+using CarBusiness;
 
 namespace CarDealershipFinal
 {
@@ -27,8 +29,11 @@ namespace CarDealershipFinal
         /// <summary>
         /// Get a full list of the current listings
         /// </summary>
-        private List<Listing> listings = CarListingsDB<Listing>.GetListings(); 
-        
+        private CarListingService service = new CarListingService();
+        private List<Listing> listings;
+
+        private CarRepository repo = new CarRepository();
+
         public frmDeleteCar()
         {
             InitializeComponent();
@@ -41,6 +46,7 @@ namespace CarDealershipFinal
         /// <param name="e"></param>
         private void frmDeleteCar_Load(object sender, EventArgs e)
         {
+            listings = service.GetListings();
             FillCarFilters();
         }
 
@@ -98,27 +104,31 @@ namespace CarDealershipFinal
         {
             try
             {
-                //make sure the user really wants to delete this car
-                DialogResult result = MessageBox.Show($"Do you want to delete car: " +
-                    $"{listings[cboDeleteCar.SelectedIndex - 1].Car.Make} " +
-                    $"{listings[cboDeleteCar.SelectedIndex - 1].Car.Model} " +
-                    $"{listings[cboDeleteCar.SelectedIndex - 1].Car.Price.ToString("c")}?",
+                if (cboDeleteCar.SelectedIndex == 0)
+                {
+                    MessageBox.Show("Please select a car to delete", "Entry Error");
+                    return;
+                }
+
+                var selectedListing = listings[cboDeleteCar.SelectedIndex - 1];
+
+                DialogResult result = MessageBox.Show(
+                    $"Do you want to delete car: " +
+                    $"{selectedListing.Car.Make} " +
+                    $"{selectedListing.Car.Model} " +
+                    $"{selectedListing.Car.Price.ToString("c")}?",
                     "Delete Car",
                     MessageBoxButtons.YesNo);
+
                 if (result == DialogResult.Yes)
                 {
-                    //Show success delete message
-                    MessageBox.Show($"Success car: " +
-                        $"{listings[cboDeleteCar.SelectedIndex - 1].Car.Make} " +
-                        $"{listings[cboDeleteCar.SelectedIndex - 1].Car.Model} " +
-                        $"deleted", "Delete Success");
+                    repo.DeleteCar(selectedListing.Car.CarID);
 
-                    //remove the car from the listings
-                    listings.RemoveAt(cboDeleteCar.SelectedIndex - 1);
+                    MessageBox.Show(
+                        $"Success car: {selectedListing.Car.Make} {selectedListing.Car.Model} deleted",
+                        "Delete Success");
 
-
-                    //need to now rewrite the file with the car deleted
-                    CarListingsDB<Listing>.UpdateAfterDeleted(listings);
+                    listings = service.GetListings();
 
                     OnRefreshListings?.Invoke();
                     OnRefreshFilters?.Invoke();
@@ -128,10 +138,7 @@ namespace CarDealershipFinal
             }
             catch
             {
-                if (cboDeleteCar.SelectedIndex == 0)
-                    MessageBox.Show("Please select a car to delete", "Entry Error");
-                else
-                    MessageBox.Show("There was an error in deleting the car", "Entry Error");
+                MessageBox.Show("There was an error in deleting the car", "Entry Error");
             }
         }
 

@@ -1,4 +1,4 @@
-﻿using CarDealershipFinal.DatabaseFiles;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarDealershipFinal
+namespace CarBusiness
 {
     /// <summary>
     /// BMW is a child class of Car

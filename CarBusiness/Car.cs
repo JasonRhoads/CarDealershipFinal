@@ -1,4 +1,4 @@
-﻿using CarDealershipFinal.DatabaseFiles;
+﻿//using CarDealershipFinal.DatabaseFiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,13 +6,14 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarDealershipFinal
+namespace CarBusiness
 {
     /// <summary>
     /// Base class of Car to be inherited by a Make Car Class
     /// </summary>
     public abstract class Car : ICar
     {
+        public int CarID { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
         public string Color { get; set; }
@@ -50,7 +51,7 @@ namespace CarDealershipFinal
         /// </summary>
         /// <param name="filterName"></param>
         /// <param name="filter"></param>
-        /// <returns>a Car object without having the seleted filter to reduce redundency</returns>
+        /// <returns>a Car object without having the selected filter to reduce redundancy</returns>
         public virtual string GetFilteredString(FilterName filterName = FilterName.Null, string filter = null)
         {
             if (filterName == FilterName.Make)

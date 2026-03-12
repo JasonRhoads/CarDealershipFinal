@@ -1,11 +1,10 @@
-﻿using CarDealershipFinal.DatabaseFiles;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarDealershipFinal
+namespace CarBusiness
 {
     /// <summary>
     /// Toyota is a child class of Car

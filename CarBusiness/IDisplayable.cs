@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarDealershipFinal
+namespace CarBusiness
 {
     /// <summary>
-    /// Creates a new Car object
+    /// Interface to display an object in a more meaningful way
     /// </summary>
-    public interface ICloneable
+    public interface IDisplayable
     {
-        object Clone();
+        string GetDisplayText();
     }
 }

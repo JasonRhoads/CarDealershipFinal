@@ -1,14 +1,7 @@
-﻿using CarDealershipFinal.DatabaseFiles;
+﻿
+using CarData;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 using ValidationLibrary;
 
 namespace CarDealershipFinal
@@ -25,6 +18,7 @@ namespace CarDealershipFinal
         public event RefreshEventHandler OnRefreshListings;
         public event RefreshEventHandler OnRefreshFilters;
 
+        private CarRepository repo = new CarRepository();
 
         public frmUpload()
         {
@@ -37,7 +31,7 @@ namespace CarDealershipFinal
         /// <returns>true when valid and false when invalid and displays a message</returns>
         private bool IsValidData()
         {
-            //set inital status to false
+            //set initial status to false
             bool isValid = false;
             string msg = Validator.IsPresent(txtModel, txtModel.Tag.ToString());
             msg += Validator.IsPresent(txtAge, txtAge.Tag.ToString());
@@ -45,7 +39,7 @@ namespace CarDealershipFinal
             msg += Validator.IsPresent(txtColor, txtColor.Tag.ToString());
             msg += Validator.IsPresent(txtPrice, txtPrice.Tag.ToString());
             msg += Validator.IsDecimal(txtPrice, txtPrice.Tag.ToString());
-            msg += Validator.IsPresent(txtVaring, lblVaring.Text);
+            msg += Validator.IsPresent(txtVarying, lblVarying.Text);
 
             //check to see that no error message was added
             if (msg == "")
@@ -68,52 +62,36 @@ namespace CarDealershipFinal
         /// <param name="e"></param>
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            //Checks for valid data from the user
             if (IsValidData())
             {
-                //check to see what make was chosen
-                var selectedMake = cboMake.SelectedItem.ToString().Trim();
-                if (selectedMake == nameof(BMW))
-                {
-                    BMW newCar = new BMW(txtModel.Text.ToString(),
-                                    txtColor.Text.ToString(),
-                                    Convert.ToInt32(txtAge.Text.ToString()),
-                                    Convert.ToDecimal(txtPrice.Text.ToString()),
-                                    txtVaring.Text.ToString());
-                    CarListingsDB<Listing>.Save(newCar);
-                }
-                else if (selectedMake == nameof(Toyota))
-                {
-                    Toyota newCar = new Toyota(txtModel.Text.ToString(),
-                                    txtColor.Text.ToString(),
-                                    Convert.ToInt32(txtAge.Text.ToString()),
-                                    Convert.ToDecimal(txtPrice.Text.ToString()),
-                                    txtVaring.Text.ToString());
-                    CarListingsDB<Listing>.Save(newCar);
-                }
-                else if (selectedMake == nameof(Ford))
-                {
-                    Ford newCar = new Ford(txtModel.Text.ToString(),
-                                    txtColor.Text.ToString(),
-                                    Convert.ToInt32(txtAge.Text.ToString()),
-                                    Convert.ToDecimal(txtPrice.Text.ToString()),
-                                    txtVaring.Text.ToString());
-                    CarListingsDB<Listing>.Save(newCar);
-                }
-                else if (selectedMake == nameof(Honda))
-                {
-                    Honda newCar = new Honda(txtModel.Text.ToString(),
-                                    txtColor.Text.ToString(),
-                                    Convert.ToInt32(txtAge.Text.ToString()),
-                                    Convert.ToDecimal(txtPrice.Text.ToString()),
-                                    txtVaring.Text.ToString());
-                    CarListingsDB<Listing>.Save(newCar);
-                }
+                string selectedMake = cboMake.SelectedItem.ToString().Trim();
 
-                OnRefreshListings?.Invoke();
-                OnRefreshFilters?.Invoke();
+                CarRecord newRecord = new CarRecord
+                {
+                    Make = selectedMake,
+                    Model = txtModel.Text.Trim(),
+                    Color = txtColor.Text.Trim(),
+                    AgeYears = Convert.ToInt32(txtAge.Text.Trim()),
+                    Price = Convert.ToDecimal(txtPrice.Text.Trim()),
+                    ExtraInfo = txtVarying.Text.Trim(),
+                    DateListed = DateTime.Now
+                };
 
-                this.Close();
+                try
+                {
+                    repo.SaveCar(newRecord);
+
+                    MessageBox.Show("Car uploaded successfully.", "Upload Success");
+
+                    OnRefreshListings?.Invoke();
+                    OnRefreshFilters?.Invoke();
+
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, ex.GetType().ToString());
+                }
             }
         }
 
@@ -128,7 +106,7 @@ namespace CarDealershipFinal
         }
 
         /// <summary>
-        /// Set lblVaring.Text to match the appropriate Make
+        /// Set lblVarying.Text to match the appropriate Make
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -137,16 +115,16 @@ namespace CarDealershipFinal
             switch(cboMake.SelectedIndex)
             {
                 case 0 : 
-                    lblVaring.Text = "Engine:";
+                    lblVarying.Text = "Engine:";
                     break;
                 case 1:
-                    lblVaring.Text = "Height:";
+                    lblVarying.Text = "Height:";
                     break;
                 case 2:
-                    lblVaring.Text = "Trim:";
+                    lblVarying.Text = "Trim:";
                     break;
                 case 3:
-                    lblVaring.Text = "Mileage:";
+                    lblVarying.Text = "Mileage:";
                     break;
             }
         }

@@ -41,8 +41,8 @@
             this.lblAge = new System.Windows.Forms.Label();
             this.lblColor = new System.Windows.Forms.Label();
             this.lblPrice = new System.Windows.Forms.Label();
-            this.lblVaring = new System.Windows.Forms.Label();
-            this.txtVaring = new System.Windows.Forms.TextBox();
+            this.lblVarying = new System.Windows.Forms.Label();
+            this.txtVarying = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnAccept
@@ -158,22 +158,22 @@
             this.lblPrice.TabIndex = 11;
             this.lblPrice.Text = "Price:";
             // 
-            // lblVaring
+            // lblVarying
             // 
-            this.lblVaring.AutoSize = true;
-            this.lblVaring.Location = new System.Drawing.Point(30, 235);
-            this.lblVaring.Name = "lblVaring";
-            this.lblVaring.Size = new System.Drawing.Size(43, 13);
-            this.lblVaring.TabIndex = 12;
-            this.lblVaring.Text = "Engine:";
+            this.lblVarying.AutoSize = true;
+            this.lblVarying.Location = new System.Drawing.Point(30, 235);
+            this.lblVarying.Name = "lblVarying";
+            this.lblVarying.Size = new System.Drawing.Size(43, 13);
+            this.lblVarying.TabIndex = 12;
+            this.lblVarying.Text = "Engine:";
             // 
-            // txtVaring
+            // txtVarying
             // 
-            this.txtVaring.Location = new System.Drawing.Point(103, 232);
-            this.txtVaring.Name = "txtVaring";
-            this.txtVaring.Size = new System.Drawing.Size(121, 20);
-            this.txtVaring.TabIndex = 6;
-            this.txtVaring.Tag = "Variable";
+            this.txtVarying.Location = new System.Drawing.Point(103, 232);
+            this.txtVarying.Name = "txtVarying";
+            this.txtVarying.Size = new System.Drawing.Size(121, 20);
+            this.txtVarying.TabIndex = 6;
+            this.txtVarying.Tag = "Variable";
             // 
             // frmUpload
             // 
@@ -182,8 +182,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(254, 327);
-            this.Controls.Add(this.txtVaring);
-            this.Controls.Add(this.lblVaring);
+            this.Controls.Add(this.txtVarying);
+            this.Controls.Add(this.lblVarying);
             this.Controls.Add(this.lblPrice);
             this.Controls.Add(this.lblColor);
             this.Controls.Add(this.lblAge);
@@ -220,7 +220,7 @@
         private System.Windows.Forms.Label lblAge;
         private System.Windows.Forms.Label lblColor;
         private System.Windows.Forms.Label lblPrice;
-        private System.Windows.Forms.Label lblVaring;
-        private System.Windows.Forms.TextBox txtVaring;
+        private System.Windows.Forms.Label lblVarying;
+        private System.Windows.Forms.TextBox txtVarying;
     }
 }

@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CarDealershipFinal.DatabaseFiles;
+using CarData;
+using CarBusiness;
 
 namespace CarDealershipFinal
 {
@@ -26,7 +27,7 @@ namespace CarDealershipFinal
             {
                 if (txtUser.Text != "" && txtPass.Text != "" && txtRole.Text != "")
                 {
-                    UserDB.Add(txtUser.Text, txtPass.Text, txtRole.Text);
+                    UserDB.Add(txtUser.Text, PasswordHasher.HashPassword(txtPass.Text), txtRole.Text);
                     txtUser.Text = "";
                     txtPass.Text = "";
                     txtRole.Text = "";

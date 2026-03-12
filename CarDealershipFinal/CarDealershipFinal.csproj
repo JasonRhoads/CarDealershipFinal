@@ -46,16 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Car.cs" />
-    <Compile Include="CarList.cs" />
-    <Compile Include="DatabaseFiles\CarAgeRangesDB.cs" />
-    <Compile Include="DatabaseFiles\CarColorsDB.cs" />
-    <Compile Include="DatabaseFiles\CarListingDB.cs" />
-    <Compile Include="DatabaseFiles\CarMakesDB.cs" />
-    <Compile Include="DatabaseFiles\CarPriceRangesDB.cs" />
-    <Compile Include="DatabaseFiles\PasswordHasher.cs" />
-    <Compile Include="DatabaseFiles\UserDB.cs" />
-    <Compile Include="Filters.cs" />
     <Compile Include="frmAdminControls.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +64,12 @@
     <Compile Include="frmDeleteCar.Designer.cs">
       <DependentUpon>frmDeleteCar.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmRegisterUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRegisterUser.Designer.cs">
+      <DependentUpon>frmRegisterUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmUpload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,15 +82,6 @@
     <Compile Include="frmUserLogin.Designer.cs">
       <DependentUpon>frmUserLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="ICar.cs" />
-    <Compile Include="ICloneable.cs" />
-    <Compile Include="IComparable.cs" />
-    <Compile Include="IDisplayable.cs" />
-    <Compile Include="Listing.cs" />
-    <Compile Include="Makes\BMW.cs" />
-    <Compile Include="Makes\Ford.cs" />
-    <Compile Include="Makes\Honda.cs" />
-    <Compile Include="Makes\Toyota.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmAdminControls.resx">
@@ -105,6 +92,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDeleteCar.resx">
       <DependentUpon>frmDeleteCar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRegisterUser.resx">
+      <DependentUpon>frmRegisterUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmUpload.resx">
       <DependentUpon>frmUpload.cs</DependentUpon>
@@ -135,21 +125,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CarBusiness\CarBusiness.csproj">
+      <Project>{671dc8d6-d411-4d2b-bc4d-033bc6c211dd}</Project>
+      <Name>CarBusiness</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CarData\CarData.csproj">
+      <Project>{32d6db01-128b-4e64-ae5e-506f6ff813ee}</Project>
+      <Name>CarData</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ValidationLibrary\ValidationLibrary.csproj">
       <Project>{1B1C1584-7F76-403B-A949-475061ED5C86}</Project>
       <Name>ValidationLibrary</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="DataFiles\CarAgeRanges.txt" />
-    <Content Include="DataFiles\CarColors.txt" />
-    <Content Include="DataFiles\CarMakes.txt" />
-    <Content Include="DataFiles\CarPriceRanges.txt" />
-    <Content Include="DataFiles\InventoryItems.txt" />
-    <Content Include="DataFiles\ListingTimes.txt" />
-    <Content Include="DataFiles\OriginalInventoryFile.txt" />
-    <Content Include="DataFiles\OriginalListingTimesFile.txt" />
-    <Content Include="DataFiles\Users.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
