@@ -44,12 +44,14 @@
     <Compile Include="Car.cs" />
     <Compile Include="CarList.cs" />
     <Compile Include="CarListingService.cs" />
+    <Compile Include="CommentService.cs" />
     <Compile Include="Filters.cs" />
     <Compile Include="ICar.cs" />
     <Compile Include="ICloneable.cs" />
     <Compile Include="IComparable.cs" />
     <Compile Include="IDisplayable.cs" />
     <Compile Include="Listing.cs" />
+    <Compile Include="ListingDisplayItem.cs" />
     <Compile Include="Makes\BMW.cs" />
     <Compile Include="Makes\Ford.cs" />
     <Compile Include="Makes\Honda.cs" />

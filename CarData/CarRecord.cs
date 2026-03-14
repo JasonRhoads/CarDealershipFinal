@@ -16,5 +16,6 @@ namespace CarData
         public decimal Price { get; set; }
         public string ExtraInfo { get; set; }
         public DateTime DateListed { get; set; }
+        public int SellerID { get; set; }
     }
 }

@@ -64,6 +64,12 @@
     <Compile Include="frmDeleteCar.Designer.cs">
       <DependentUpon>frmDeleteCar.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmListingDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmListingDetails.Designer.cs">
+      <DependentUpon>frmListingDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmRegisterUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDeleteCar.resx">
       <DependentUpon>frmDeleteCar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmListingDetails.resx">
+      <DependentUpon>frmListingDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmRegisterUser.resx">
       <DependentUpon>frmRegisterUser.cs</DependentUpon>

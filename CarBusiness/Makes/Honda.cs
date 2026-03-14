@@ -46,7 +46,7 @@ namespace CarBusiness
             if (filterName == FilterName.Make || filterName == FilterName.Color)
             {
                 if (result != null && result != "")
-                    return result + $"Trim: {Trim}\n";
+                    return result + $" |  {Trim}";
             }
 
             return result;

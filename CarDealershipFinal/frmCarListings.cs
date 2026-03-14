@@ -23,9 +23,11 @@ namespace CarDealershipFinal
         public static int startIndex = 0;
         public static int endIndex = 0;
         public static int totalListings = 0;
+        public static int currentUserID = -1;
+        public static string currentUsername = "guest";
         public static string userRole = "guest";
 
-        public static List<string> paginationlistings = new List<string>();
+        public static List<ListingDisplayItem> paginationlistings = new List<ListingDisplayItem>();
         private CarListingService service = new CarListingService();
 
         public frmCarListings()
@@ -67,16 +69,21 @@ namespace CarDealershipFinal
         /// </summary>
         private void FillListings()
         {
-            rchListings.Clear();
+            lstListings.DataSource = null;
             paginationlistings.Clear();
 
             List<Listing> listings = service.GetListings();
 
-            //have the newest listing at the top
-            for (int i = 0; i < listings.Count; i++)
-                paginationlistings.Add($"\t{listings[i].CreationTime.ToString()}\n" 
-                    + $"{listings[i].Car.GetDisplayText()}\n");
+            // newest first
+            listings.Reverse();
 
+            foreach (var listing in listings)
+            {
+                string displayText = $"{listing.CreationTime:g} | {listing.Car.Make} {listing.Car.Model} | {listing.Car.Color} | {listing.Car.Age} | {listing.Car.Price:C}";
+                paginationlistings.Add(new ListingDisplayItem(listing, displayText));
+            }
+
+            startIndex = 0;
             PaginateListings();
 
             OnRefreshListings?.Invoke();
@@ -92,7 +99,7 @@ namespace CarDealershipFinal
             if (cboFilterBy.SelectedIndex != 0)
             {
                 //clear the rich text box
-                rchListings.Clear();
+                lstListings.DataSource = null;
                 paginationlistings.Clear();
 
 
@@ -114,10 +121,11 @@ namespace CarDealershipFinal
                 //find all the cars that match the filter
                 foreach (var listing in listings)
                 {
-                    if (listing.GetFilteredString(filterName, filter) != null)
+                    string filteredText = listing.GetFilteredString(filterName, filter);
+
+                    if (!string.IsNullOrWhiteSpace(filteredText))
                     {
-                        //have the newest listing at the top
-                        paginationlistings.Add(listing.GetFilteredString(filterName, filter));
+                        paginationlistings.Add(new ListingDisplayItem(listing, filteredText));
                     }
                 }
 
@@ -132,7 +140,7 @@ namespace CarDealershipFinal
         /// <summary>
         /// Logs the user in or out and gives them access to the upload, delete, and/or admin controls
         /// </summary>
-        private void Login()
+        public void Login()
         {
             if (!userLoggedIn)
             {
@@ -147,6 +155,7 @@ namespace CarDealershipFinal
                     lblGreeting.Text = "Hello, " + loginForm.Tag.ToString();
                     btnUpload.Visible = true;
                     btnDelete.Visible = true;
+                    btnMyCars.Visible = true;
                     btnLogin.Text = "Logout";
 
                     if (userRole == "admin")
@@ -164,6 +173,7 @@ namespace CarDealershipFinal
                 btnUpload.Visible = false;
                 btnDelete.Visible = false;
                 btnAdmin.Visible = false;
+                btnMyCars.Visible = false;
                 btnLogin.Text = "Login";
             }
 
@@ -277,7 +287,7 @@ namespace CarDealershipFinal
         /// <param name="e"></param>
         private void btnLastPage_Click(object sender, EventArgs e)
         {
-            startIndex = paginationlistings.Count - paginationlistings.Count % 5;
+            startIndex = paginationlistings.Count - paginationlistings.Count % 10;
             PaginateListings();
         }
 
@@ -288,7 +298,7 @@ namespace CarDealershipFinal
         /// <param name="e"></param>
         private void btnPreviousPage_Click(object sender, EventArgs e)
         {
-            startIndex = startIndex - 5 < 0 ? 0 : startIndex - 5;
+            startIndex = startIndex - 10 < 0 ? 0 : startIndex - 10;
             PaginateListings();
         }
 
@@ -299,22 +309,23 @@ namespace CarDealershipFinal
         /// <param name="e"></param>
         private void btnNextPage_Click(object sender, EventArgs e)
         {
-            startIndex = startIndex + 5 >= paginationlistings.Count ? paginationlistings.Count - paginationlistings.Count % 5 : startIndex + 5;
+            startIndex = startIndex + 10 >= paginationlistings.Count ? paginationlistings.Count - paginationlistings.Count % 10 : startIndex + 10;
             PaginateListings();
         }
 
         private void PaginateListings()
         {
             //set the end index for each page. 
-            endIndex = startIndex + 5 < paginationlistings.Count ? startIndex + 5 : paginationlistings.Count;
+            endIndex = startIndex + 10 < paginationlistings.Count ? startIndex + 10 : paginationlistings.Count;
 
             //clear the listings
-            rchListings.Clear();
+            lstListings.DataSource = null;
+            lstListings.Items.Clear();
 
             //display the listings
             for (int i = startIndex; i < endIndex; i++)
             {
-                rchListings.Text += paginationlistings[i];
+                lstListings.Items.Add(paginationlistings[i]);
             }
         }
 
@@ -327,6 +338,41 @@ namespace CarDealershipFinal
         {
             frmAdminControls f1 = new frmAdminControls();
             f1.ShowDialog();
+        }
+
+
+        private void lstListings_DoubleClick(object sender, EventArgs e)
+        {
+            if (lstListings.SelectedItem == null) return;
+
+            ListingDisplayItem selectedItem = (ListingDisplayItem)lstListings.SelectedItem;
+
+            frmListingDetails detailsForm = new frmListingDetails(selectedItem.Listing);
+            detailsForm.ShowDialog();
+        }
+
+        private void btnMyCars_Click(object sender, EventArgs e)
+        {
+            if (!userLoggedIn)
+            {
+                MessageBox.Show("Please login first.");
+                return;
+            }
+
+            lstListings.Items.Clear();
+            paginationlistings.Clear();
+
+            var listings = service.GetListingsBySeller(currentUserID);
+
+            foreach (var listing in listings)
+            {
+                string displayText = $"{listing.CreationTime:g} | {listing.Car.Make} {listing.Car.Model} | {listing.Car.Color} | {listing.Car.Age} | {listing.Car.Price:C}";
+                paginationlistings.Add(new ListingDisplayItem(listing, displayText));
+            }
+
+            startIndex = 0;
+
+            PaginateListings();
         }
     }
 }

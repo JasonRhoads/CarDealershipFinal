@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAdminControls));
             this.btnAddUser = new System.Windows.Forms.Button();
             this.btnRemoveUser = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -131,6 +132,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnRemoveUser);
             this.Controls.Add(this.btnAddUser);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmAdminControls";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Admin Controls";

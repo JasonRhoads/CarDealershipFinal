@@ -59,7 +59,8 @@ namespace CarDealershipFinal
             cboDeleteCar.Items.Clear();
             cboDeleteCar.Items.Add("Select a car...");
             cboDeleteCar.SelectedIndex = 0;
-       
+
+            listings.Reverse();
             //Get every car and display the make model and price for a user to select
             foreach (var listing in listings)
             {

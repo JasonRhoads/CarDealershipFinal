@@ -67,12 +67,12 @@ namespace CarBusiness
                 if (filterName == FilterName.Make)
                 {
                     if (car.Make == filter)
-                        return $"Model: {car.Model}\nColor: {car.Color}\nAge: {car.Age}\nPrice: {car.Price:c}\n";
+                        return $"{car.Model} | {car.Color} | {car.Age} | {car.Price:c}";
                 }
                 else if (filterName == FilterName.Color)
                 {
                     if (car.Color == filter)
-                        return $"Make: {car.Make}\nModel: {car.Model}\nAge: {car.Age}\nPrice: {car.Price:c}\n";
+                        return $"{car.Make} | {car.Model} | {car.Age} | {car.Price:c}";
                 }
                 else if (filterName == FilterName.Age)
                 {
@@ -82,7 +82,7 @@ namespace CarBusiness
 
                     if (!car.CompareTo(lowerLimit) && car.CompareTo(upperLimit))
                     {
-                        result += car.GetDisplayText();
+                        result += car.GetListText();
                     }
                 }
                 else if (filterName == FilterName.Price)
@@ -93,7 +93,7 @@ namespace CarBusiness
 
                     if (!car.CompareTo(lowerLimit) && car.CompareTo(upperLimit))
                     {
-                        result += car.GetDisplayText();
+                        result += car.GetListText();
                     }
                 }
             }

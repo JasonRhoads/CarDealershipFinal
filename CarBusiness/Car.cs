@@ -19,6 +19,7 @@ namespace CarBusiness
         public string Color { get; set; }
         public int Age { get; set; }
         public decimal Price { get; set; }
+        public int SellerID { get; set; }
 
         public Car() { }
 
@@ -43,7 +44,17 @@ namespace CarBusiness
         /// Requires each Car Make to implement a GetDisplayText method
         /// </summary>
         public abstract string GetDisplayText();
-        
+
+
+        /// <summary>
+        /// Get Display Text for the list box. A shortened version
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public string GetListText() =>
+             $"{Make} {Model} | {Color} | {Age} |  {Price:C}";
+
+
         /// <summary>
         /// Get the appropriate data based off of the filter selected
         /// ex. If Make is the filter then the listings shown does not include the make in the listing

@@ -44,7 +44,7 @@ namespace CarBusiness
             if (filterName == FilterName.Make || filterName == FilterName.Color)
             {
                 if (result != null && result != "")
-                    return result + $"Height: {Height}\n";
+                    return result + $" | {Height}";
             }
 
             return result;

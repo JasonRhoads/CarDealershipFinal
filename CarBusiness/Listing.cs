@@ -42,10 +42,9 @@ namespace CarBusiness
         /// Display a car listing in a readable format
         /// </summary>
         /// <returns>Car.GetDisplayText and the DateTime it is created</returns>
-        public override string ToString()
-        {
-            return Car.GetDisplayText() + CreationTime.ToString() + "\n\n";
-        }
+        public override string ToString() =>
+             $"{CreationTime.ToString()} | {Car.Make} {Car.Model} | {Car.Color} | {Car.Age} | {Car.Price:C}";
+        
 
         /// <summary>
         /// Get the Listings that match the filter
@@ -58,7 +57,7 @@ namespace CarBusiness
         {
             string carFilteredString = Car.GetFilteredString(filterName, filter);
             if (carFilteredString != null && carFilteredString != "")
-                return carFilteredString + CreationTime.ToString() + "\n\n";
+                return CreationTime.ToString() + " | " + carFilteredString;
 
             return null;
         }

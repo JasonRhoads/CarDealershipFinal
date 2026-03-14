@@ -54,6 +54,8 @@
     <Compile Include="CarPriceRangesDB.cs" />
     <Compile Include="CarRecord.cs" />
     <Compile Include="CarRepository.cs" />
+    <Compile Include="Comment.cs" />
+    <Compile Include="CommentRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -41,7 +41,9 @@ namespace CarDealershipFinal
                         failedAttempts = 0;
 
                         frmCarListings.userLoggedIn = true;
+                        frmCarListings.currentUserID = Convert.ToInt32(users[username][2]);
                         frmCarListings.userRole = users[username][1];
+                        frmCarListings.currentUsername = username;
                         Tag = username + ": " + users[username][1];
                         DialogResult = DialogResult.OK;
                         this.Close();

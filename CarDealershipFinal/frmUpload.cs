@@ -74,7 +74,8 @@ namespace CarDealershipFinal
                     AgeYears = Convert.ToInt32(txtAge.Text.Trim()),
                     Price = Convert.ToDecimal(txtPrice.Text.Trim()),
                     ExtraInfo = txtVarying.Text.Trim(),
-                    DateListed = DateTime.Now
+                    DateListed = DateTime.Now,
+                    SellerID = frmCarListings.currentUserID
                 };
 
                 try

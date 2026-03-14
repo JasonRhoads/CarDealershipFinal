@@ -35,7 +35,6 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.cboFilterBy = new System.Windows.Forms.ComboBox();
-            this.rchListings = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
             this.btnAdmin = new System.Windows.Forms.Button();
@@ -44,6 +43,8 @@
             this.btnLastPage = new System.Windows.Forms.Button();
             this.btnPreviousPage = new System.Windows.Forms.Button();
             this.btnNextPage = new System.Windows.Forms.Button();
+            this.lstListings = new System.Windows.Forms.ListBox();
+            this.btnMyCars = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnFilter
@@ -58,7 +59,7 @@
             // 
             // btnViewAll
             // 
-            this.btnViewAll.Location = new System.Drawing.Point(304, 84);
+            this.btnViewAll.Location = new System.Drawing.Point(409, 38);
             this.btnViewAll.Name = "btnViewAll";
             this.btnViewAll.Size = new System.Drawing.Size(87, 23);
             this.btnViewAll.TabIndex = 3;
@@ -68,10 +69,10 @@
             // 
             // btnUpload
             // 
-            this.btnUpload.Location = new System.Drawing.Point(304, 152);
+            this.btnUpload.Location = new System.Drawing.Point(130, 297);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(87, 23);
-            this.btnUpload.TabIndex = 5;
+            this.btnUpload.TabIndex = 9;
             this.btnUpload.Text = "&Upload";
             this.btnUpload.UseVisualStyleBackColor = true;
             this.btnUpload.Visible = false;
@@ -79,10 +80,10 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(304, 186);
+            this.btnDelete.Location = new System.Drawing.Point(223, 297);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(87, 23);
-            this.btnDelete.TabIndex = 6;
+            this.btnDelete.TabIndex = 10;
             this.btnDelete.Text = "&Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Visible = false;
@@ -91,10 +92,10 @@
             // btnExit
             // 
             this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnExit.Location = new System.Drawing.Point(304, 254);
+            this.btnExit.Location = new System.Drawing.Point(409, 297);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(87, 23);
-            this.btnExit.TabIndex = 12;
+            this.btnExit.TabIndex = 13;
             this.btnExit.Text = "E&xit";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
@@ -106,16 +107,6 @@
             this.cboFilterBy.Name = "cboFilterBy";
             this.cboFilterBy.Size = new System.Drawing.Size(204, 21);
             this.cboFilterBy.TabIndex = 1;
-            // 
-            // rchListings
-            // 
-            this.rchListings.Location = new System.Drawing.Point(37, 84);
-            this.rchListings.Name = "rchListings";
-            this.rchListings.ReadOnly = true;
-            this.rchListings.Size = new System.Drawing.Size(250, 166);
-            this.rchListings.TabIndex = 3;
-            this.rchListings.TabStop = false;
-            this.rchListings.Text = "";
             // 
             // label1
             // 
@@ -129,20 +120,20 @@
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(304, 220);
+            this.btnLogin.Location = new System.Drawing.Point(316, 297);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(87, 23);
-            this.btnLogin.TabIndex = 7;
+            this.btnLogin.TabIndex = 12;
             this.btnLogin.Text = "&Login";
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // btnAdmin
             // 
-            this.btnAdmin.Location = new System.Drawing.Point(304, 118);
+            this.btnAdmin.Location = new System.Drawing.Point(409, 256);
             this.btnAdmin.Name = "btnAdmin";
             this.btnAdmin.Size = new System.Drawing.Size(87, 23);
-            this.btnAdmin.TabIndex = 4;
+            this.btnAdmin.TabIndex = 10;
             this.btnAdmin.Text = "Admin Controls";
             this.btnAdmin.UseVisualStyleBackColor = true;
             this.btnAdmin.Visible = false;
@@ -162,41 +153,62 @@
             // 
             this.btnFirstPage.Location = new System.Drawing.Point(37, 256);
             this.btnFirstPage.Name = "btnFirstPage";
-            this.btnFirstPage.Size = new System.Drawing.Size(75, 23);
-            this.btnFirstPage.TabIndex = 8;
+            this.btnFirstPage.Size = new System.Drawing.Size(87, 23);
+            this.btnFirstPage.TabIndex = 4;
             this.btnFirstPage.Text = "First Page";
             this.btnFirstPage.UseVisualStyleBackColor = true;
             this.btnFirstPage.Click += new System.EventHandler(this.btnFirstPage_Click);
             // 
             // btnLastPage
             // 
-            this.btnLastPage.Location = new System.Drawing.Point(212, 256);
+            this.btnLastPage.Location = new System.Drawing.Point(223, 256);
             this.btnLastPage.Name = "btnLastPage";
-            this.btnLastPage.Size = new System.Drawing.Size(75, 23);
-            this.btnLastPage.TabIndex = 11;
+            this.btnLastPage.Size = new System.Drawing.Size(87, 23);
+            this.btnLastPage.TabIndex = 7;
             this.btnLastPage.Text = "Last Page";
             this.btnLastPage.UseVisualStyleBackColor = true;
             this.btnLastPage.Click += new System.EventHandler(this.btnLastPage_Click);
             // 
             // btnPreviousPage
             // 
-            this.btnPreviousPage.Location = new System.Drawing.Point(127, 256);
+            this.btnPreviousPage.Location = new System.Drawing.Point(130, 256);
             this.btnPreviousPage.Name = "btnPreviousPage";
-            this.btnPreviousPage.Size = new System.Drawing.Size(29, 23);
-            this.btnPreviousPage.TabIndex = 9;
+            this.btnPreviousPage.Size = new System.Drawing.Size(40, 23);
+            this.btnPreviousPage.TabIndex = 5;
             this.btnPreviousPage.Text = "<";
             this.btnPreviousPage.UseVisualStyleBackColor = true;
             this.btnPreviousPage.Click += new System.EventHandler(this.btnPreviousPage_Click);
             // 
             // btnNextPage
             // 
-            this.btnNextPage.Location = new System.Drawing.Point(171, 256);
+            this.btnNextPage.Location = new System.Drawing.Point(177, 256);
             this.btnNextPage.Name = "btnNextPage";
-            this.btnNextPage.Size = new System.Drawing.Size(26, 23);
-            this.btnNextPage.TabIndex = 10;
+            this.btnNextPage.Size = new System.Drawing.Size(40, 23);
+            this.btnNextPage.TabIndex = 6;
             this.btnNextPage.Text = ">";
             this.btnNextPage.UseVisualStyleBackColor = true;
             this.btnNextPage.Click += new System.EventHandler(this.btnNextPage_Click);
+            // 
+            // lstListings
+            // 
+            this.lstListings.FormattingEnabled = true;
+            this.lstListings.Location = new System.Drawing.Point(37, 84);
+            this.lstListings.Name = "lstListings";
+            this.lstListings.Size = new System.Drawing.Size(459, 160);
+            this.lstListings.TabIndex = 13;
+            this.lstListings.TabStop = false;
+            this.lstListings.DoubleClick += new System.EventHandler(this.lstListings_DoubleClick);
+            // 
+            // btnMyCars
+            // 
+            this.btnMyCars.Location = new System.Drawing.Point(37, 297);
+            this.btnMyCars.Name = "btnMyCars";
+            this.btnMyCars.Size = new System.Drawing.Size(87, 23);
+            this.btnMyCars.TabIndex = 8;
+            this.btnMyCars.Text = "My Cars";
+            this.btnMyCars.UseVisualStyleBackColor = true;
+            this.btnMyCars.Visible = false;
+            this.btnMyCars.Click += new System.EventHandler(this.btnMyCars_Click);
             // 
             // frmCarListings
             // 
@@ -204,7 +216,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnExit;
-            this.ClientSize = new System.Drawing.Size(416, 303);
+            this.ClientSize = new System.Drawing.Size(539, 348);
+            this.Controls.Add(this.btnMyCars);
+            this.Controls.Add(this.lstListings);
             this.Controls.Add(this.btnNextPage);
             this.Controls.Add(this.btnPreviousPage);
             this.Controls.Add(this.btnLastPage);
@@ -213,7 +227,6 @@
             this.Controls.Add(this.btnAdmin);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.rchListings);
             this.Controls.Add(this.cboFilterBy);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnDelete);
@@ -238,7 +251,6 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.ComboBox cboFilterBy;
-        private System.Windows.Forms.RichTextBox rchListings;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnAdmin;
@@ -247,6 +259,8 @@
         private System.Windows.Forms.Button btnLastPage;
         private System.Windows.Forms.Button btnPreviousPage;
         private System.Windows.Forms.Button btnNextPage;
+        private System.Windows.Forms.ListBox lstListings;
+        private System.Windows.Forms.Button btnMyCars;
     }
 }
 

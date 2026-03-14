@@ -18,7 +18,7 @@ namespace CarData
             {
                 using (SqlConnection connection = CarDataDB.GetConnection())
                 {
-                    string sql = "SELECT Username, PasswordHash, Role FROM Users";
+                    string sql = "SELECT UserID, Username, PasswordHash, Role FROM Users";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -28,13 +28,15 @@ namespace CarData
                         {
                             while (reader.Read())
                             {
+                                string userID = reader["UserID"].ToString();
                                 string username = reader["Username"].ToString();
                                 string password = reader["PasswordHash"].ToString();
                                 string role = reader["Role"].ToString();
 
-                                string[] val = new string[2];
+                                string[] val = new string[3];
                                 val[0] = password;
                                 val[1] = role;
+                                val[2] = userID;
 
                                 output.Add(username, val);
                             }
